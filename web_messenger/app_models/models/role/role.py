@@ -1,7 +1,7 @@
 from django.db import models
 from ..server.server import Server
 from django.utils.translation import gettext_lazy as _
-from ..rights.rights_role import RightsRole
+from ..rights import RightsRole
 
 class Role(models.Model):
     title = models.CharField(_('role title'), max_length=20)
@@ -9,5 +9,6 @@ class Role(models.Model):
     color = models.CharField()
     role_rights = models.OneToOneField(
         RightsRole,
-        on_delete=models.CASCADE
+        on_delete=models.SET_NULL,
+        null=True
     )

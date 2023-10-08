@@ -34,7 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     status_id = models.ForeignKey(
         Status, 
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True
         )
     
