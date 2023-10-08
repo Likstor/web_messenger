@@ -6,4 +6,4 @@ from .server.server import Server
 from .serveruser.server_user import ServerUser
 from .status.status import Status
 from .user.user import User
-from .rights.rights import Rights
+from .rights import Rights, RightsServerUser, RightsRole
