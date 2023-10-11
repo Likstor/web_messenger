@@ -7,6 +7,7 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from ..status.status import Status
 from django.core.mail import send_mail
 from .manager import UserManager
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -18,11 +19,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         _('username'),
         max_length=30,
         help_text=_(
-            "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+            "30 characters or fewer. Letters, digits and @/./+/-/_ only."
         ),
         validators=[username_validator],
     )
-    phone = models.IntegerField(_('phone'), null=True)
+    phone = PhoneNumberField(null=False, blank=False, unique=True)
     description = models.TextField(_('description'))
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     
@@ -41,7 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(
         upload_to='files/user_avatars/', 
         default='files/default/user_avatar.jpg')
-    
+
     objects = UserManager()
     
     USERNAME_FIELD = "email"
