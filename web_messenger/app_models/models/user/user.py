@@ -23,7 +23,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ),
         validators=[username_validator],
     )
-    phone = PhoneNumberField(null=True, blank=False, unique=False)
+    phone = PhoneNumberField(null=True, blank=True, unique=False)
     description = models.TextField(_('description'))
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     
