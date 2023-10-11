@@ -10,20 +10,21 @@ from .manager import UserManager
 from phonenumber_field.modelfields import PhoneNumberField
 
 
+def user_directory_path(instance, filename):
+    return 'users/user_{0}/{1}'.format(instance.id, filename)
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     
-    username_validator = UnicodeUsernameValidator()
-    
-    username = models.CharField(
+    user_name = models.CharField(
         _('username'),
         max_length=30,
         help_text=_(
             "30 characters or fewer. Letters, digits and @/./+/-/_ only."
         ),
-        validators=[username_validator],
     )
-    phone = PhoneNumberField(null=True, blank=False, unique=False)
+    phone = PhoneNumberField(null=True, blank=False)
     description = models.TextField(_('description'))
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     
@@ -40,8 +41,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
     
     avatar = models.ImageField(
-        upload_to='files/user_avatars/', 
-        default='files/default/user_avatar.jpg')
+        upload_to=user_directory_path, 
+        default='default/user_avatar.png')
 
     objects = UserManager()
     
@@ -57,8 +58,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         super().clean()
         self.email = self.__class__.objects.normalize_email(self.email)
 
-    def get_username(self):
-        return self.username
+    def get_name(self):
+        return self.user_name
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
