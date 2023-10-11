@@ -23,12 +23,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         ),
         validators=[username_validator],
     )
-    phone = PhoneNumberField(null=False, blank=False, unique=True)
+    phone = PhoneNumberField(null=True, blank=False, unique=False)
     description = models.TextField(_('description'))
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     
     is_banned = models.BooleanField(_('is banned'), default=False)
-    date_banned = models.DateTimeField(_('date banned'), auto_now=False, auto_now_add=False, null=True)
+    date_banned = models.DateTimeField(_('date banned'), null=True, blank=True)
     
     is_active = models.BooleanField(_('is active'), default=True)
     is_staff = models.BooleanField(_("staff status"), default=False)

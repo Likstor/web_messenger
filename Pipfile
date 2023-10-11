@@ -9,7 +9,7 @@ django-debug-toolbar = "*"
 psycopg2 = "*"
 python-decouple = "*"
 pillow = "*"
-django-phonenumber-field = "*"
+django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
 
 [dev-packages]
 
