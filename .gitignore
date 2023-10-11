@@ -1,2 +1,5 @@
 settings.ini
 __pycache__
+migrations
+user_avatars
+users
