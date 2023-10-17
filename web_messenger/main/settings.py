@@ -78,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'web_messenger.wsgi.application'
+WSGI_APPLICATION = 'main.wsgi.application'
 
 
 # Database
