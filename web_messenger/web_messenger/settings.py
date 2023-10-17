@@ -45,9 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_models',
+    'app_models.apps.AppModelsConfig',
     'phonenumber_field',
-    'web_msg',
+    'web_msg.apps.WebMsgConfig',
 ]
 
 MIDDLEWARE = [
