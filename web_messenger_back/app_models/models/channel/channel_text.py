@@ -1,4 +1,4 @@
 from ..channel.channel import Channel
 
-class TextChannel(Channel):
+class ChannelText(Channel):
     ...

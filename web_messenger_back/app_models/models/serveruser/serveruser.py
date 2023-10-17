@@ -16,3 +16,6 @@ class ServerUser(models.Model):
     mute_time = models.TimeField(_('mute time'), null=True)
     rights = models.OneToOneField(RightsServerUser, on_delete=models.SET_NULL, null=True)
     role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.username_local

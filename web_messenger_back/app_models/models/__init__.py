@@ -1,4 +1,4 @@
-from .channel.channel import Channel
+from .channel import Channel, ChannelVoice, ChannelText
 from .message.message import Message
 from .privilege.privilege import Privilege
 from .role.role import Role
