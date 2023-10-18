@@ -32,17 +32,43 @@ class RightsRoleAdmin(admin.ModelAdmin):
     list_display = ('can_ban', 'can_kick')
 
 
+class ServerAdmin(admin.ModelAdmin):
+    list_display = ('title', 'owner')
+    list_filter = ('owner',)
+
+
+class RoleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'color', 'server', 'role_rights')
+    list_filter = ('server',)
+
+
+class ServerUserAdmin(admin.ModelAdmin):
+    list_display = ('user', 'username_local', 'server', 'is_banned', 'data_banned', 'is_muted', 'mute_time', 'role', 'rights')
+    list_filter = ('is_banned', 'is_muted', 'role')
+
+
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('title', 'color')
+
+
+class RightsAdmin(admin.ModelAdmin):
+    list_display = ('can_ban', 'can_kick')
+
+
+class RightsServerUserAdmin(admin.ModelAdmin):
+    list_display = ('can_ban', 'can_kick')
+
 
 admin.site.register(Channel, ChannelAdmin)
 admin.site.register(ChannelText, ChannelTextAdmin)
 admin.site.register(ChannelVoice, ChannelVoiceAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Privilege, PrivilegeAdmin)
-admin.site.register(Role)
-admin.site.register(Server)
-admin.site.register(ServerUser)
-admin.site.register(Status)
+admin.site.register(Role, RoleAdmin)
+admin.site.register(Server, ServerAdmin)
+admin.site.register(ServerUser, ServerUserAdmin)
+admin.site.register(Status, StatusAdmin)
 admin.site.register(User, UserAdmin)
-admin.site.register(Rights)
+admin.site.register(Rights, RightsAdmin)
 admin.site.register(RightsRole, RightsRoleAdmin)
-admin.site.register(RightsServerUser)
+admin.site.register(RightsServerUser, RightsServerUserAdmin)
