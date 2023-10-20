@@ -12,3 +12,5 @@ class Role(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
+    def __str__(self):
+        return self.title
