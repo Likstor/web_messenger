@@ -59,10 +59,16 @@ class RightsServerUserAdmin(admin.ModelAdmin):
     list_display = ('can_ban', 'can_kick')
 
 
+class MessageReplyAdmin(admin.ModelAdmin):
+    list_display = ('text', 'file', 'user', 'time', 'text_channel', 'answer_to')
+    list_filter = ('user', 'time')
+
+
 admin.site.register(Channel, ChannelAdmin)
 admin.site.register(ChannelText, ChannelTextAdmin)
 admin.site.register(ChannelVoice, ChannelVoiceAdmin)
 admin.site.register(Message, MessageAdmin)
+admin.site.register(MessageReply, MessageReplyAdmin)
 admin.site.register(Privilege, PrivilegeAdmin)
 admin.site.register(Role, RoleAdmin)
 admin.site.register(Server, ServerAdmin)

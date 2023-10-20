@@ -1,5 +1,5 @@
 from .channel import Channel, ChannelVoice, ChannelText
-from .message.message import Message
+from .message import Message, MessageReply
 from .privilege.privilege import Privilege
 from .role.role import Role
 from .server.server import Server

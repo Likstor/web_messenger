@@ -24,8 +24,8 @@ class User(AbstractBaseUser, PermissionsMixin):
             "30 characters or fewer. Letters, digits and @/./+/-/_ only."
         ),
     )
-    phone = PhoneNumberField(null=True, blank=False)
-    description = models.TextField(_('description'))
+    phone = PhoneNumberField(null=True, blank=True)
+    description = models.TextField(_('description'), null=True, blank=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     
     is_banned = models.BooleanField(_('is banned'), default=False)
