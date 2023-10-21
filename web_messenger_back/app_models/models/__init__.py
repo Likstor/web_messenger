@@ -1,4 +1,5 @@
 from .channel.channel import Channel
+from .channel.text_channel import TextChannel
 from .message.message import Message
 from .privilege.privilege import Privilege
 from .role.role import Role
