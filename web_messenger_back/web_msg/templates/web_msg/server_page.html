@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static "web_msg/css/server_page.css"%}">
+</head>
+<body>
+<h1>{{server.title}}</h1>
+
+<table cellpadding="5" cellspacing="0">
+    <tr>
+     <td id="channels_block">
+        <div > Текстовые каналы
+            <ul>
+                {% for c in server.channel_set.all %}
+                     <li>
+                        <a href="{% url "channel-detail" c.id%}">{{c.title}}</a>
+                     </li>
+                {% endfor %}
+            </ul>
+        </div>
+     </td>
+
+     <td id="chat_block">
+        <div id="messages_block">
+            {% block message_list %}{% endblock message_list %} 
+        </div> 
+
+        <div >
+            <textarea id="chat_input" type="text" maxlength="100" cols="40" rows="5"  required></textarea>
+        </div> 
+     </td>
+     
+
+     
+     <td id="users_block">
+        <div >
+            <ul>
+                {% for su in server.serveruser_set.all %}
+            <li>{{su.username_local}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+     </td>
+    </tr>
+</table>
+</body>
+</html>
