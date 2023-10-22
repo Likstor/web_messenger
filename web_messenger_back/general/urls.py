@@ -25,6 +25,6 @@ from web_msg.views import index
 urlpatterns = [
     path('', index),
     path('admin/', admin.site.urls),
-    path('web_msg', include('web_msg.urls')),
-    path('', RedirectView.as_view(url='/catalog/', permanent=True)),
+    path('web_msg/', include('web_msg.urls')),
+    # path('', RedirectView.as_view(url='/catalog/', permanent=True)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
