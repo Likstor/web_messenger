@@ -1,12 +1,10 @@
 TABLE {
     width: 100%;
-    /* Ширина таблицы */
     height: 90vh;
 }
 
 TD {
     vertical-align: top;
-    /* Выравнивание по верхнему краю ячейки */
 }
 
 #channels_block {
@@ -19,15 +17,13 @@ TD {
 
 #chat_block {
     background: #afccdb;
-    /* Цвет фона второй колонки */
     color: black;
     border: 1px solid black;
     vertical-align: bottom;
 }
 
 #chat_input{
-    width: 90%;
-    max-width: 90%;
+    width: 92.6%;
     max-height: 150px;
     resize: none;
 }
@@ -44,14 +40,32 @@ TD {
 
 #messages_block{
     vertical-align: bottom;
-    background: #fc0;
+    background: transparent;
+    float: left;
+    width: 93%;
 }
 
-#message {
+#message {  
     background: gray;
     color: black;
     height: 90vh;
     width: 200px;
     border: 1px solid black;
     float: inline-start;
+}
+
+#avatar_img{
+    height: 40px;
+    width: 40px;
+}
+
+button{
+    border-radius: 3px;
+    color: rgb(0, 0, 0);
+    font-style: italic;
+    text-align: center;
+    position: relative;
+    padding: 5px;
+    margin: 28px 8px 0px 0px;
+    float: right;
 }
