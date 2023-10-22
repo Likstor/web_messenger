@@ -1,0 +1,57 @@
+TABLE {
+    width: 100%;
+    /* Ширина таблицы */
+    height: 90vh;
+}
+
+TD {
+    vertical-align: top;
+    /* Выравнивание по верхнему краю ячейки */
+}
+
+#channels_block {
+    width: 150px;
+    /* Ширина первой колонки */
+    background: gray;
+    color: black;
+    border: 1px solid black;
+}
+
+#chat_block {
+    background: #afccdb;
+    /* Цвет фона второй колонки */
+    color: black;
+    border: 1px solid black;
+    vertical-align: bottom;
+}
+
+#chat_input{
+    width: 90%;
+    max-width: 90%;
+    max-height: 150px;
+    resize: none;
+}
+
+#users_block {
+    width: 200px;
+    /* Ширина третьей колонки */
+    background: #fc0;
+    /* Цвет фона третьей колонки */
+    background: gray;
+    color: black;
+    border: 1px solid black;
+}
+
+#messages_block{
+    vertical-align: bottom;
+    background: #fc0;
+}
+
+#message {
+    background: gray;
+    color: black;
+    height: 90vh;
+    width: 200px;
+    border: 1px solid black;
+    float: inline-start;
+}

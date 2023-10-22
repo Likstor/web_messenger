@@ -1,0 +1,9 @@
+{% extends "web_msg/server_page.html"%}
+
+{% block message_list %}    
+<ul>
+    {% for m in channeltext.message_set %}
+        <li>{{m.text}}</li>
+    {% endfor %}
+</ul>
+{% endblock message_list %} 

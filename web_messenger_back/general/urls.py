@@ -20,8 +20,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import include
 from django.views.generic import RedirectView
+from web_msg.views import index
 
 urlpatterns = [
+    path('', index),
     path('admin/', admin.site.urls),
     path('', include('web_msg.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))

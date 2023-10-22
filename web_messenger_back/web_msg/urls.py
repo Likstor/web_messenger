@@ -52,5 +52,7 @@ urlpatterns = [
              template_name='web_msg/account/password_reset/password_reset_complete.html'
              ), 
          name='password_reset_complete', ),
-
+    path('', views.index, name='index'),
+    path('server/<int:pk>/', views.ServerDetailView.as_view(), name='server-detail'),
+    path('channel/<int:pk>/', views.ChannelTextDetailView.as_view(), name='channel-detail')
 ]
