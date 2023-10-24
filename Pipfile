@@ -12,6 +12,7 @@ pillow = "*"
 django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
 
 [dev-packages]
+aiosmtpd = "*"
 
 [requires]
 python_version = "3.11"

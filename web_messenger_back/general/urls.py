@@ -20,11 +20,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import include
 from django.views.generic import RedirectView
-from web_msg.views import index
 
 urlpatterns = [
-    path('', index),
     path('admin/', admin.site.urls),
-    path('web_msg/', include('web_msg.urls')),
-    # path('', RedirectView.as_view(url='/catalog/', permanent=True)),
+    path('', include('web_msg.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
