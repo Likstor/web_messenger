@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from ..forms import LoginForm
+from ...forms import LoginForm
 
 
 def user_login(request):
@@ -20,4 +20,4 @@ def user_login(request):
                 return HttpResponse('Invalid login')
     else:
         form = LoginForm()
-    return render(request, 'web_msg/login.html', {'form': form})
+    return render(request, 'web_msg/profile/login.html', {'form': form})
