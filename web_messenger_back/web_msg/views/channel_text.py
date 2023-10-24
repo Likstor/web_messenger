@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import DetailView, View
-from app_models.models import ChannelText
+from app_models.models.channel.channel_text import ChannelText
 
 
 class ChannelTextDetailView(DetailView):
