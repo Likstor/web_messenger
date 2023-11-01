@@ -27,7 +27,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #any
 
 LOGIN_REDIRECT_URL = reverse_lazy('home')
-LOGIN_URL = reverse_lazy('login')
+LOGIN_URL = reverse_lazy('sign_in')
 LOGOUT_URL = reverse_lazy('logout')
 
 # email
