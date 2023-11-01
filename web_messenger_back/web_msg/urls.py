@@ -1,13 +1,14 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('login/', auth_views.LoginView.as_view(template_name="web_msg/account/login.html", redirect_field_name='home'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name="web_msg/account/logout.html"), name='logout'),
-    path('home/', views.home, name='home'),
+    path('home/', login_required(views.Home.as_view()), name='home'),
     
     # password change
     
