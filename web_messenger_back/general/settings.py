@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'app_models.apps.AppModelsConfig',
     'phonenumber_field',
     'web_msg.apps.WebMsgConfig',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
