@@ -1,4 +1,4 @@
 from ..channel.channel import Channel
 
-class VoiceChannel(Channel):
+class ChannelVoice(Channel):
     ...
