@@ -1,1 +1,1 @@
-from .login_view import user_login as login
+from .sign_up import user_sign_up as sign_up

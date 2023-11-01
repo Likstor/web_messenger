@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block title %}<title>Sign in</title>{% endblock %}
+    <meta charset="utf-8" />
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+
+  <body class="d-flex align-items-center py-4 bg-body-tertiary">
+
+    <main class="form-signin w-100 m-auto">
+      
+      <form method="post" action="{% url 'sign_in' %}">
+        <h1 class="d-flex align-items-center py-4 bg-body-tertiary">Sign in</h1>
+
+        <div class='container'>
+          {% bootstrap_label "Email address"%}
+        </div>
+  
+        {% bootstrap_field form.username show_label=False placeholder='example@gmail.com'%}
+
+        <div class='container'>
+          {% bootstrap_label "Password"%}
+          <a class="link-opacity-75" href="{% url "password_reset" %}">Forgot password?</a>
+        </div>
+        {% bootstrap_field form.password show_label=False placeholder='password' %}
+
+        <div class='d-grid col-6 mx-auto' align='center'>
+          {% csrf_token %}
+          {% bootstrap_button "Accept" button_type="submit" button_class="btn-primary" %}
+        </div>
+
+        <div align='center'><span>Don't have an account? <a href="{% url 'sign_up'%}">sign up</a></span></div>
+      </form>
+    </main>
+  </body>
+</main>

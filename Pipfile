@@ -10,6 +10,7 @@ psycopg2 = "*"
 python-decouple = "*"
 pillow = "*"
 django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
+django-bootstrap-v5 = "*"
 
 [dev-packages]
 aiosmtpd = "*"

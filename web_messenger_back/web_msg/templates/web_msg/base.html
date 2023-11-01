@@ -1,15 +1,11 @@
 <!doctype html>
 <html lang="en">
   <head>
-    {% block title %}<title>Web messenger</title>{% endblock %}
+    {% block title %}<title></title>{% endblock %}
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
@@ -23,12 +19,11 @@
               <li><a href="{% url 'home' %}">Home</a></li>
 
               {% if user.is_authenticated %}
-                <li>User: {{ user.get_username }}</li>
+                <li>User: {{ user.get_name }}</li>
                 <li><a href="{% url 'logout'%}">Logout</a></li>
               {% else %}
-                <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+                <li><a href="{% url 'sign_in'%}?next={{request.path}}">Login</a></li>
               {% endif %}
-  </ul>
             </ul>
           {% endblock %}
         </div>
