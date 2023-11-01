@@ -23,6 +23,11 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
+    path('home/', include("web_msg.urls")),
     path('web_msg', include('web_msg.urls')),
     path('', RedirectView.as_view(url='/catalog/', permanent=True)),
+=======
+    path('', include('web_msg.urls')),
+>>>>>>> login-page
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
