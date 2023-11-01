@@ -1,0 +1,1 @@
+from .registration_view import user_registration as registration

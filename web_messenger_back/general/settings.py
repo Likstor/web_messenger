@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+from django.urls import reverse_lazy
 
 # base_dir and files/media root
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,6 +23,21 @@ FILES_ROOT = os.path.join(BASE_DIR, 'files')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#any
+
+LOGIN_REDIRECT_URL = reverse_lazy('home')
+LOGIN_URL = reverse_lazy('login')
+LOGOUT_URL = reverse_lazy('logout')
+
+# email
+
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -48,6 +64,7 @@ INSTALLED_APPS = [
     'app_models.apps.AppModelsConfig',
     'phonenumber_field',
     'web_msg.apps.WebMsgConfig',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
