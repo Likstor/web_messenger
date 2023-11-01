@@ -22,7 +22,7 @@ urlpatterns = [
          name='logout'),
     
     path('home/', 
-         views.home, 
+         views.Home.as_view(), 
          name='home'),
     
     # password change

@@ -1,3 +1,3 @@
 from .index import index
-from .home import home
+from .home import Home
 from .account import sign_up
