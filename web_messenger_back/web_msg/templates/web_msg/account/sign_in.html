@@ -11,22 +11,22 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
 
-  <body class="d-flex align-items-center py-4 bg-body-tertiary">
+  <body class="d-flex align-items-center">
 
     <main class="form-signin w-100 m-auto">
       
       <form method="post" action="{% url 'sign_in' %}">
         <h1 class="d-flex align-items-center py-4 bg-body-tertiary">Sign in</h1>
 
-        <div class='container'>
+        <div class='d-flex justify-content-between'>
           {% bootstrap_label "Email address"%}
         </div>
   
         {% bootstrap_field form.username show_label=False placeholder='example@gmail.com'%}
-
-        <div class='container'>
-          {% bootstrap_label "Password"%}
-          <a class="link-opacity-75" href="{% url "password_reset" %}">Forgot password?</a>
+        
+        <div class='d-flex justify-content-between'>
+          {% bootstrap_label "Password" %}
+          <a class='text-muted' href="{% url "password_reset" %}">Forgot password?</a>
         </div>
         {% bootstrap_field form.password show_label=False placeholder='password' %}
 
@@ -35,7 +35,7 @@
           {% bootstrap_button "Accept" button_type="submit" button_class="btn-primary" %}
         </div>
 
-        <div align='center'><span>Don't have an account? <a href="{% url 'sign_up'%}">sign up</a></span></div>
+        <div class='small mb-5 pb-lg-2' align='center'><span>Don't have an account? <a class='text-muted' href="{% url 'sign_up'%}">Sign up</a></span></div>
       </form>
     </main>
   </body>
