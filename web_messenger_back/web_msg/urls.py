@@ -6,15 +6,15 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('', views.index, name='index'),
     
-    path('login/', 
+    path('sign-in/', 
          auth_views.LoginView.as_view(
-             template_name="web_msg/account/login.html",
+             template_name="web_msg/account/sign_in.html",
              redirect_field_name='home', redirect_authenticated_user=True),
-         name='login'),
+         name='sign_in'),
     
-    path('registration/', 
-         views.registration, 
-         name='registration'),
+    path('sign-up/', 
+         views.sign_up, 
+         name='sign_up'),
     
     path('logout/', 
          auth_views.LogoutView.as_view(

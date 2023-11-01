@@ -1,1 +1,1 @@
-from .registration_view import user_registration as registration
+from .sign_up import user_sign_up as sign_up

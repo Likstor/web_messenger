@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block title %}<title>Sign up</title>{% endblock %}
+    <meta charset="utf-8" />
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+
+  <body class="d-flex align-items-center py-4 bg-body-tertiary">
+
+    <main class="form-signin w-100 m-auto">
+      
+      <form method="post" action="{% url 'sign_in' %}">
+        <h1 class="d-flex align-items-center py-4 bg-body-tertiary">Sign up</h1>
+
+        {% bootstrap_field sign_up_form.email show_label=True placeholder='example@gmail.com'%}
+        {% bootstrap_field sign_up_form.user_name show_label=True placeholder='example@gmail.com'%}
+        {% bootstrap_field sign_up_form.password_1 show_label=True placeholder='password'%}
+        {% bootstrap_field sign_up_form.password_2 show_label=True placeholder='password'%}
+
+        <div class="d-grid gap-2 col-9 mx-auto" align='center'>
+          {% csrf_token %}
+          {% bootstrap_button "Accept" button_type="submit" button_class="btn-primary" %}
+        </div>
+        
+      </form>
+    </main>
+  </body>
+</main>
