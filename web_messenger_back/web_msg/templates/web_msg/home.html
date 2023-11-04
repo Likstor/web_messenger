@@ -1,4 +1,5 @@
 {% extends "web_msg/base.html" %}
+{% load bootstrap5 %}
 
 {% block content %}
   <h1>Home Page</h1>
@@ -7,12 +8,11 @@
 
   <ul>
 
-    {% for server in object_list %}
+    {% for su in object_list %}
     <li>
-      <a href="{% url "server-detail" server.id%}">{{server.title}}</a>
+      <a href="{% url "server-detail" su.server.pk%}">{{su.server}}</a>
     </li>
     {% endfor %}
 
   </ul>
-  
-{% endblock %}
+  {% endblock %}

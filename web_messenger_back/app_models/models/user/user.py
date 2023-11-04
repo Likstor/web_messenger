@@ -31,6 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_banned = models.BooleanField(_('is banned'), default=False)
     date_banned = models.DateTimeField(_('date banned'), null=True, blank=True)
     
+    
     is_active = models.BooleanField(_('is active'), default=True)
     is_staff = models.BooleanField(_("staff status"), default=False)
     
