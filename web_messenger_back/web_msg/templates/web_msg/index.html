@@ -1,5 +1,18 @@
+{% extends "web_msg/base.html" %}
+{% load bootstrap5 %}
+{% load static %}
 
 {% block content %}
-<a class='text-muted' href="{% url 'sign_up'%}">Sign up</a>
-<a class='text-muted' href="{% url 'sign_in'%}">Sign in</a>
+  <div class='container my-5'>
+  <div class="row p-3 pe-0 pt-3 align-items-center rounded-3 border shadow"> 
+    <div class="col-7 p-5 pt-3"> 
+    <h1 class="display-4 fw-bold lh-1">Welcome to <br/> Simple Web Messenger</h1> 
+    <p class="lead">Простой веб-мессенджер с минимальным функционалом. Qui velit commodo aliquip aliqua eu reprehenderit aliqua ex mollit. Labore est enim velit adipisicing sit. Sunt qui nostrud Lorem nostrud esse exercitation laborum laborum dolor irure duis. Esse labore Lorem magna nisi sit in eu magna cupidatat aute. In sunt ea deserunt proident exercitation esse nisi eiusmod laboris laborum. Aute dolor mollit deserunt dolore reprehenderit dolore incididunt.</p> 
+    </div> 
+    <div class="my-4 col-4 offset-1 p-0 overflow-hidden shadow"> 
+    <img class="rounded-3" src="{% static 'images/wm-idx.png'%}" width="700" height='470'> 
+    </div> 
+  </div> 
+  
+  </div>
 {% endblock %}

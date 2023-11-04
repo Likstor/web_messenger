@@ -1,35 +1,54 @@
 <!doctype html>
 <html lang="en">
   <head>
-    {% block title %}<title></title>{% endblock %}
+    {% block title %}<title>Sign in</title>{% endblock %}
     <meta charset="utf-8" />
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    {% bootstrap_messages %}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     <link rel="shortcut icon" type="image/png" href="{% static 'images/wm.ico' %}" >
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
 
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-2">
-          {% block sidebar %}
-            <ul class="sidebar-nav">
-              <li><a href="{% url 'home' %}">Home</a></li>
+  <header class="p-2" style="background-color: #00036c;">
+    <div class='container'>
+        <div class='d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start'>
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <img src='{% static "images/wm.png"%}' width='40' height='40'>
+        </a>
 
-              {% if user.is_authenticated %}
-                <li>User: {{ user.get_name }}</li>
-                <li><a href="{% url 'logout'%}">Logout</a></li>
-              {% else %}
-                <li><a href="{% url 'sign_in'%}?next={{request.path}}">Login</a></li>
-              {% endif %}
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="{% url 'home' %}" class="nav-link px-3" style='color: #FFFFFF'>Home</a></li>
+        </ul>
+        {% if not user.is_authenticated %}
+          <div class="text-end">
+            <a class="btn btn-outline-light me-2" href='{% url "sign_in" %}' role="button">Sign in</a>
+            <a class="btn btn-light me-2" href='{% url "sign_up" %}' role="button">Sign up</a>
+          </div>
+        {% else %}
+
+          <div class="dropdown text-end">
+            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" style='color: #FFFFFF' data-bs-toggle="dropdown" aria-expanded='false'>
+              {{ user.user_name }}
+              <img src="{{ user.avatar.url }}" alt="" width="32" height="32" class="rounded-circle ms-2">
+            </a>
+            <ul class="dropdown-menu text-small" style="">
+              <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
             </ul>
-          {% endblock %}
+          </div>
+        {% endif %}
+
         </div>
-        <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
-      </div>
     </div>
+  </header>
+
+  <body>
+    <div>{% block content %}{% endblock %}</div>
   </body>
+
+
 </html>

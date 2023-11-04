@@ -53,5 +53,11 @@ urlpatterns = [
              template_name='web_msg/account/password_reset/password_reset_complete.html'
              ), 
          name='password_reset_complete', ),
+    
+    # account
+    
+    path('account/profile/',
+         views.profile,
+         name='profile')
 
 ]

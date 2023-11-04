@@ -18,10 +18,7 @@ from django.urls import reverse_lazy
 # base_dir and files/media root
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-FILES_URL = '/files/'
-FILES_ROOT = os.path.join(BASE_DIR, 'files')
-
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #any
