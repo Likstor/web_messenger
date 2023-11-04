@@ -23,7 +23,7 @@ urlpatterns = [
          name='logout'),
     
     path('home/', 
-         login_required(views.Home.as_view()), 
+         views.home, 
          name='home'),
     
     # password change
@@ -53,8 +53,8 @@ urlpatterns = [
              template_name='web_msg/account/password_reset/password_reset_complete.html'
              ), 
          name='password_reset_complete', ),
-
-    path('server/<int:pk>/',views.ServerDetailView.as_view(), name='server-detail'),
+    path('', views.index, name='index'),
+    path('server/<int:pk>/', views.ServerDetailView.as_view(), name='server-detail'),
     # path('server/<int:pk>/channel/<int:pk>/', views.ChannelTextDetailView.as_view(), name='channel-detail'),
     path('channel/<int:pk>/', views.ChannelTextDetailView.as_view(), name='channel-detail')
 ]
