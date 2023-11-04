@@ -1,7 +1,22 @@
-{% extends "web_msg/base.html" %}
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block title %}<title>Logout</title>{% endblock %}
+    <meta charset="utf-8" />
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/wm.ico' %}" >
+  </head>
 
-{% block content %}
-  <p>Logged out!</p>
 
-  <a href="{% url 'sign_in'%}">Click here to login again.</a>
-{% endblock %}
+  <body class='d-flex justify-content-center align-items-center flex-column mb-1'>
+      <h1>You are logged out</h1>
+      <a class='text-muted' href="{% url 'sign_in'%}">Sign in again?</a>
+
+      
+  </body>
+</html>

@@ -10,7 +10,7 @@ def user_sign_up(request):
             sign_up_form = SignUpForm(request.POST)
             if sign_up_form.is_valid():
                 create_user = sign_up_form.save(commit=False)
-                create_user.set_password(sign_up_form.cleaned_data['password_1'])
+                create_user.set_password(sign_up_form.cleaned_data['password1'])
                 create_user.save()
                 return render(request, 'web_msg/account/sign_up/sign_up_done.html', {'create_user': create_user})
         else:

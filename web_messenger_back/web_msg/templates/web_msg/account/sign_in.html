@@ -8,6 +8,7 @@
     {% bootstrap_javascript %}
     {% bootstrap_messages %}
     {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/wm.ico' %}" >
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
 
@@ -22,13 +23,21 @@
           {% bootstrap_label "Email address"%}
         </div>
   
-        {% bootstrap_field form.username show_label=False placeholder='example@gmail.com'%}
+        {% bootstrap_field form.username show_label=False placeholder='example@gmail.com' bound_css_class=''%}
         
         <div class='d-flex justify-content-between'>
           {% bootstrap_label "Password" %}
           <a class='text-muted' href="{% url "password_reset" %}">Forgot password?</a>
         </div>
-        {% bootstrap_field form.password show_label=False placeholder='password' %}
+        {% bootstrap_field form.password show_label=False placeholder='password' bound_css_class=''%}
+
+        <div class='d-flex justify-content-center'>
+        {% if form.errors%}
+          <h7 style='margin-bottom: 0.5rem' class='text-danger text-nowrap bd-highlight text-center'>Incorrect email address or password.</h7>
+        {% else %}
+          <h7 style='margin-bottom: 0.5rem' class='p2text-danger text-nowrap bd-highlight text-center'></h7>
+        {% endif %}
+        </div>
 
         <div class='d-grid col-6 mx-auto' align='center'>
           {% csrf_token %}
@@ -39,4 +48,4 @@
       </form>
     </main>
   </body>
-</main>
+</html>
