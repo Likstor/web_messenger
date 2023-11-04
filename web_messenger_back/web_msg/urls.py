@@ -58,3 +58,4 @@ urlpatterns = [
     # path('server/<int:pk>/channel/<int:pk>/', views.ChannelTextDetailView.as_view(), name='channel-detail'),
     path('channel/<int:pk>/', views.ChannelTextDetailView.as_view(), name='channel-detail')
 ]
+pass
