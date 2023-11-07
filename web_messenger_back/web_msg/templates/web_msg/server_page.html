@@ -1,48 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>{{title}}</title>
-    {%load static%}
-    <link rel="stylesheet" href="{% static "web_msg/css/server_page.css"%}">
-</head>
+{% extends "web_msg/base.html" %}
+
+{% block content %}
 <body>
-{% block title_pblock %} 
-    <h1>{{server.title}}</h1>
-{% endblock title_pblock %}
-
-<table cellpadding="5" cellspacing="0">
-    <tr>
-     <td id="channels_block">
-        <div > Текстовые каналы
-            <ul>
-                {% block channel_pblock %} 
-                    {% for c in server.channel_set.all %}
-                        <li>
-                            <a href="{% url "channel-detail" c.id%}">{{c.title}}</a>
-                        </li>
-                    {% endfor %}
-                {% endblock channel_pblock %}
-                {% comment %} Он ими не заполяет. Тк расширяет, но данных для запонления нету. {% endcomment %}
-            </ul>
-        </div>
-     </td>
-
-     <td id="chat_block">
-        <div>{% block message_pblock %} {% endblock message_pblock %} </div>
-     </td>
-     
-     <td id="users_block">
-        <div >
-            {% block user_pblock %} 
+    {% block title_pblock %} 
+        <h1>{{server.title}}</h1>
+    {% endblock title_pblock %}
+    
+    <table cellpadding="5" cellspacing="0">
+        <tr>
+         <td id="channels_block">
+            <div > Текстовые каналы
                 <ul>
-                    {% for su in server.serveruser_set.all %}
-                <li>{{su.username_local}}</li>
-                    {% endfor %}
+                    {% block channel_pblock %} 
+                        {% for c in server.channel_set.all %}
+                            <li>
+                                <a href="{% url "channel-detail" c.id%}">{{c.title}}</a>
+                            </li>
+                        {% endfor %}
+                    {% endblock channel_pblock %}
+                    {% comment %} Он ими не заполяет. Тк расширяет, но данных для запонления нету. {% endcomment %}
                 </ul>
-            {% endblock user_pblock %}
-        </div>
-     </td>
-    </tr>
-</table>
-</body>
-</html>
+            </div>
+         </td>
+    
+         <td id="chat_block">
+            <div>{% block message_pblock %} {% endblock message_pblock %} </div>
+         </td>
+         
+         <td id="users_block">
+            <div >
+                {% block user_pblock %} 
+                    <ul>
+                        {% for su in serveruser %}
+                            <li>{{su.username_local}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endblock user_pblock %}
+            </div>
+         </td>
+        </tr>
+    </table>
+    </body>
+  
+{% endblock %}
