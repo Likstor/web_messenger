@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'web_msg.apps.WebMsgConfig',
     'bootstrap5',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
