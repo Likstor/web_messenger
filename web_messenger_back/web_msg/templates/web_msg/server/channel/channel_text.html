@@ -1,0 +1,44 @@
+{% extends "web_msg/server/server_base.html"%}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block title_pblock %} 
+    <h1>{{channeltext.title}}</h1>
+{% endblock title_pblock %}
+
+
+{% block channel_pblock %} 
+    {% for c in channeltext.server.channel_set.all %}
+        <li>
+            <a href="{% url "channel-detail" c.id%}">{{c.title}}</a>
+        </li>
+    {% endfor %}
+{% endblock channel_pblock %}
+
+
+{% block user_pblock %} 
+        <ul>
+            {% for su in channeltext.server.serveruser_set.all %}
+                <li>{{su.username_local}}</li>
+            {% endfor %}
+        </ul>
+{% endblock user_pblock %}
+
+
+{% block message_pblock %}    
+<div id="messages_block">
+    <ul>
+        {% for m in channeltext.message_set.all %}
+            <img height="40" width="40" src="{% static "web_msg/img/user_avatar.png"%}" />
+            <a>{{m.user}}</a>
+            {% comment %} not local user name{% endcomment %}
+            <li>{{m.text}}</li>
+        {% endfor %}
+    </ul>
+</div> 
+
+<div >
+    <textarea id="chat_input" type="text" maxlength="100" cols="40" rows="5"  required></textarea>
+    <button type="button" name="send" >Отправить</button>
+</div>
+{% endblock message_pblock %} 
