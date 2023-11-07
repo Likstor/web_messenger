@@ -1,5 +1,18 @@
 {% extends "web_msg/base.html" %}
 
 {% block content %}
-  <h1>Your Home page</h1>
+  <h1>Home Page</h1>
+
+  <h2>Servers List</h2>
+
+  <ul>
+
+    {% for server in object_list %}
+    <li>
+      <a href="{% url "server-detail" server.id%}">{{server.title}}</a>
+    </li>
+    {% endfor %}
+
+  </ul>
+  
 {% endblock %}

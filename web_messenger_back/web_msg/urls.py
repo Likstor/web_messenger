@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
@@ -22,7 +23,7 @@ urlpatterns = [
          name='logout'),
     
     path('home/', 
-         views.home, 
+         login_required(views.Home.as_view()), 
          name='home'),
     
     # password change
@@ -53,4 +54,7 @@ urlpatterns = [
              ), 
          name='password_reset_complete', ),
 
+    path('server/<int:pk>/',views.ServerDetailView.as_view(), name='server-detail'),
+    # path('server/<int:pk>/channel/<int:pk>/', views.ChannelTextDetailView.as_view(), name='channel-detail'),
+    path('channel/<int:pk>/', views.ChannelTextDetailView.as_view(), name='channel-detail')
 ]
