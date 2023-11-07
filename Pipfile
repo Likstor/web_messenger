@@ -11,6 +11,9 @@ python-decouple = "*"
 pillow = "*"
 django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
 django-bootstrap-v5 = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
 
 [dev-packages]
 aiosmtpd = "*"
