@@ -14,7 +14,7 @@ from app_models.models import ServerUser
 
 class ServerDetailView(DetailView):
     model = Server
-    template_name = "web_msg/server_page.html"
+    template_name = "web_msg/server/server_base.html"
     context_object_name = "data"
     # print(dir(DetailView))
 
@@ -32,7 +32,7 @@ class ServerDetailView(DetailView):
 
         # context['channeltext'] = ChannelText.objects.get()
         return context
-    
+
 
 def server_home(request):
-    return render(request, 'web_msg/server_page.html')
+    return render(request, 'web_msg/server_base.html')
