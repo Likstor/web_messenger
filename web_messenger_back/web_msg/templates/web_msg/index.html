@@ -12,43 +12,44 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
 
-  <header class="p-2" style="background-color: #00036c;">
-    <div class='container'>
-        <div class='d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start'>
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <img src='{% static "images/wm.png"%}' width='40' height='40'>
-        </a>
-
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="{% url 'home' %}" class="nav-link px-3" style='color: #FFFFFF'>Home</a></li>
-        </ul>
-        {% if not user.is_authenticated %}
-          <div class="text-end">
-            <a class="btn btn-outline-light me-2" href='{% url "sign_in" %}' role="button">Sign in</a>
-            <a class="btn btn-light me-2" href='{% url "sign_up" %}' role="button">Sign up</a>
-          </div>
-        {% else %}
-
-          <div class="dropdown text-end">
-            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" style='color: #FFFFFF' data-bs-toggle="dropdown" aria-expanded='false'>
-              {{ user.user_name }}
-              <img src="{{ user.avatar.url }}" alt="" width="32" height="32" class="rounded-circle ms-2">
-            </a>
-            <ul class="dropdown-menu text-small" style="">
-              <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-            </ul>
-          </div>
-        {% endif %}
-
-        </div>
-    </div>
-  </header>
-
   <body>
+    <header class="p-2" style="background-color: #00036c;">
+        <div class='container'>
+            <div class='d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start'>
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <img src='{% static "images/wm.png"%}' width='40' height='40'>
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="{% url 'home' %}" class="nav-link px-3" style='color: #FFFFFF'>Home</a></li>
+            </ul>
+            {% if not user.is_authenticated %}
+            <div class="text-end">
+                <a class="btn btn-outline-light me-2" href='{% url "sign_in" %}' role="button">Sign in</a>
+                <a class="btn btn-light me-2" href='{% url "sign_up" %}' role="button">Sign up</a>
+            </div>
+            {% else %}
+
+            <div class="dropdown text-end">
+                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" style='color: #FFFFFF' data-bs-toggle="dropdown" aria-expanded='false'>
+                {{ user.user_name }}
+                <img src="{{ user.avatar.url }}" alt="" width="32" height="32" class="rounded-circle ms-2">
+                </a>
+                <ul class="dropdown-menu text-small" style="">
+                <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </div>
+            
+            {% endif %}
+
+            </div>
+        </div>
+    </header>
+
     <div class='container my-5'>
-    <div class="row p-3 pe-0 pt-3 align-items-center rounded-3 border shadow"> 
+      <div class="row p-3 pe-0 pt-3 align-items-center rounded-3 border shadow"> 
       <div class="col-7 p-5 pt-3"> 
       <h1 class="display-4 fw-bold lh-1">Welcome to <br/> Simple Web Messenger</h1> 
       <p class="lead">Простой веб-мессенджер с минимальным функционалом. Qui velit commodo aliquip aliqua eu reprehenderit aliqua ex mollit. Labore est enim velit adipisicing sit. Sunt qui nostrud Lorem nostrud esse exercitation laborum laborum dolor irure duis. Esse labore Lorem magna nisi sit in eu magna cupidatat aute. In sunt ea deserunt proident exercitation esse nisi eiusmod laboris laborum. Aute dolor mollit deserunt dolore reprehenderit dolore incididunt.</p> 
@@ -56,8 +57,7 @@
       <div class="my-4 col-4 offset-1 p-0 overflow-hidden shadow"> 
       <img class="rounded-3" src="{% static 'images/wm-idx.png'%}" width="700" height='470'> 
       </div> 
-    </div> 
-    
+      </div> 
     </div>
   </body>
 </html>
