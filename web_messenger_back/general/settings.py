@@ -61,9 +61,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_models.apps.AppModelsConfig',
+    'app_models',
+    'web_msg',
     'phonenumber_field',
-    'web_msg.apps.WebMsgConfig',
     'bootstrap5',
     'rest_framework',
 ]

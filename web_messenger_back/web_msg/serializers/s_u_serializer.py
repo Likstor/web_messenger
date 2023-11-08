@@ -1,7 +1,4 @@
 from rest_framework import serializers
-import sys
-sys.path.append('..')
-from models import *
 
 class RigthsServerUserSerializer(serializers.ModelField):
     class Meta:
