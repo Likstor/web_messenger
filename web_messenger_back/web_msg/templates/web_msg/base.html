@@ -58,7 +58,7 @@
             <div class='scrollarea'>
               {% for su in user.serveruser_set.all %}
               <div class='row d-flex align-items-start'>
-              <a href='#' class='text-decoration-none text-white text-start py-1'><span class='fs-5'>{{ su.server.title }}</span></a>
+              <a href='{% url "server-detail" su.server.pk %}' class='text-decoration-none text-white text-start py-1'><span class='fs-5'>{{ su.server.title }}</span></a>
               </div>
               {% endfor %}
             </div>

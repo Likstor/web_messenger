@@ -21,8 +21,6 @@ class ServerDetailView(DetailView):
     def get_context_data(self, **kwargs):
         user = User.objects.get(pk = self.request.user.id)
         serveruser = user.serveruser_set.all()
-        
-        print(kwargs)
 
         context = super().get_context_data(**kwargs)
         # context = {'users_list': User.objects.all()}
