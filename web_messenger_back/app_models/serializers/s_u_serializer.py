@@ -1,11 +1,10 @@
 from rest_framework import serializers
-from app_models.models import RightsServerUser
+from ..models import RightsServerUser, ServerUser
 
 class RigthsServerUserSerializer(serializers.ModelField):
     class Meta:
         model = RightsServerUser
         fields = '__all__'
-
 
 
 class ServerUserSerializer(serializers.ModelSerializer):
@@ -22,3 +21,4 @@ class ServerUserSerializer(serializers.ModelSerializer):
         fields = ('user', 'server', 'is_banned',
                 'data_banned', 'is_muted', 'mute_time',
                 'rights', 'role')
+        
