@@ -4,6 +4,9 @@ from ..user.user import User
 from ..server.server import Server
 from ..rights import RightsServerUser
 from ..role.role import Role
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from serializers import ServerUserSerializer
 
 
 class ServerUser(models.Model):
@@ -19,3 +22,13 @@ class ServerUser(models.Model):
 
     def __str__(self):
         return self.username_local
+    
+# class GetServerUserInfo(APIView):
+#     def get(self, request):
+#         queryset = ServerUser.objects.all()
+#         serializer_for_queryset = ServerUserSerializer(
+#             instance=queryset,
+#             many=True
+#         )
+#         return Response(serializer_for_queryset.data)
+    
