@@ -26,4 +26,5 @@ urlpatterns = [
     path('', index),
     path('admin/', admin.site.urls),
     path('', include('web_msg.urls')),
+    path('api/', include('app_models.api.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
