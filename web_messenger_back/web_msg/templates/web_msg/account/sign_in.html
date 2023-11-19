@@ -12,39 +12,39 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
 
-  <body class="">
+  <body>
 
-    <main class="col-md-3 mx-auto form-signin align-items-center">
-      <form class='p-3 p-md-5 border bg-body-tertiary' style='background-color: #f9f9f9; border-radius: 1rem' method="post" action="{% url 'sign_in' %}">
-        <h1 class="py-4">Sign in</h1>
+    <main class="d-flex justify-content-center col-md-3 mx-auto">
+        <form class='p-3 p-md-5 border bg-body-tertiary' style='background-color: #f9f9f9; border-radius: 1rem' method="post" action="{% url 'sign_in' %}">
+          <h1 class="py-4">Sign in</h1>
 
-        <div class='d-flex justify-content-between'>
-          {% bootstrap_label "Email address"%}
-        </div>
-  
-        {% bootstrap_field form.username show_label=False placeholder='example@gmail.com' bound_css_class=''%}
-        
-        <div class='d-flex justify-content-between'>
-          {% bootstrap_label "Password" %}
-          <a class='text-muted' href="{% url "password_reset" %}">Forgot password?</a>
-        </div>
-        {% bootstrap_field form.password show_label=False placeholder='password' bound_css_class=''%}
+          <div class='d-flex justify-content-between'>
+            {% bootstrap_label "Email address"%}
+          </div>
+    
+          {% bootstrap_field form.username show_label=False placeholder='example@gmail.com' bound_css_class=''%}
+          
+          <div class='d-flex justify-content-between'>
+            {% bootstrap_label "Password" %}
+            <a class='text-muted' href="{% url "password_reset" %}">Forgot password?</a>
+          </div>
+          {% bootstrap_field form.password show_label=False placeholder='password' bound_css_class=''%}
 
-        <div class='d-flex justify-content-center'>
-        {% if form.errors%}
-          <h7 style='margin-bottom: 0.5rem' class='text-danger text-nowrap bd-highlight text-center'>Incorrect email address or password.</h7>
-        {% else %}
-          <h7 style='margin-bottom: 0.5rem' class='p2text-danger text-nowrap bd-highlight text-center'></h7>
-        {% endif %}
-        </div>
+          <div class='d-flex justify-content-center'>
+          {% if form.errors%}
+            <h7 style='margin-bottom: 0.5rem' class='text-danger text-nowrap bd-highlight text-center'>Incorrect email address or password.</h7>
+          {% else %}
+            <h7 style='margin-bottom: 0.5rem' class='p2text-danger text-nowrap bd-highlight text-center'></h7>
+          {% endif %}
+          </div>
 
-        <div class='d-grid col-6 mx-auto' align='center'>
-          {% csrf_token %}
-          {% bootstrap_button "Accept" button_type="submit" button_class="btn-primary" %}
-        </div>
+          <div class='d-grid col-6 mx-auto' align='center'>
+            {% csrf_token %}
+            {% bootstrap_button "Accept" button_type="submit" button_class="btn-primary" %}
+          </div>
 
-        <div class='mt-5 small' align='center'><span>Don't have an account? <a class='text-muted' href="{% url 'sign_up'%}">Sign up</a></span></div>
-      </form>
+          <div class='mt-5 small' align='center'><span>Don't have an account? <a class='text-muted' href="{% url 'sign_up'%}">Sign up</a></span></div>
+        </form>
     </main>
   </body>
 </html>

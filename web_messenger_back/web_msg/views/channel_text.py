@@ -1,14 +1,19 @@
-from django.http import HttpResponse
+from typing import Any
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
-from django.views.generic import DetailView, View
+from django.views.generic import View
 from app_models.models.channel.channel_text import ChannelText
 
 
-class ChannelTextDetailView(DetailView):
+class ChannelTextDetailView(View):
     model = ChannelText
     template_name = "web_msg/server/channel/channel_text.html"
-    context_object_name = "channeltext"
     
+    def get(self, request, *args, **kwargs):
+        channel = ChannelText.objects.get(id=kwargs['channel_id'])
+        
+        if kwargs['server_id'] != channel.server.id:
+            raise Http404
 
-def channel_chat(request):  
-    return render(request, 'web_msg/server/channel/channel_text.html')
+        return render(request, self.template_name, context={'server' : channel.server, 
+                                                            'channeltext': channel})

@@ -1,18 +1,19 @@
-.form-signin {
-    max-width: 330px;
-    padding: 1rem;
-}
-
-.form-signin {
-    z-index: 2;
-}
-
 body, main {
     display: flex;
     flex-direction: column;
     height: 100vh;
     margin: 0;
     padding: 0;
+}
+
+.btn-circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 24px;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 16px;
 }
 
 .container-fluid {

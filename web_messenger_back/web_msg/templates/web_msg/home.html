@@ -1,5 +1,15 @@
-{% extends "web_msg/base.html" %}
+{% extends "web_msg/base_extend.html" %}
+
+{% block title %}<title>Home</title>{% endblock %}
 
 {% block content %}
-  <h1>Home Page</h1>
+  <div class="row flex-fill d-flex">
+        <div class='text-dark p-2 bg-white' 
+            style='border-bottom-left-radius: 8px;
+                  border-top-left-radius: 8px;'>
+                    <h1>
+                      Home Page
+                    </h1>
+        </div>
+  </div>
 {% endblock %}

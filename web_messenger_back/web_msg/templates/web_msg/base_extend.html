@@ -1,0 +1,45 @@
+{% extends "web_msg/base.html"%}
+
+{% block base_main %}
+    <div class="container-fluid d-flex flex-column bg-dark">
+      <div class="row flex-fill d-flex">
+        <div class="col text-white d-flex flex-column justify-content-between" style='max-width: 77px'>
+          <div class='d-flex justify-content-center py-1'>
+            <div class='scrollarea'>
+              {% for su in user.serveruser_set.all %}
+              <div class='row d-flex align-items-start py-1'>
+
+                <a role='button' href='{% url "server-detail" su.server.pk %}' 
+                    class='btn 
+                        btn-{%cycle 'warning' 'primary' 'danger' 'secondary' 'info' %} 
+                        btn-circle 
+                        py-2'
+                    data-bs-toggle="tooltip" 
+                    title="{{su.server.title}}"
+                    style='line-height: 0.7; 
+                          font-size: 26px; 
+                          margin: 0; 
+                          white-space: nowrap;
+                          {% if server.pk == su.server.pk %}
+                          outline: 0.2rem solid white;
+                          {% endif %}'>
+                    <i class="bi bi-people-fill text-white"></i>
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+            <hr>
+          </div>
+          <div class='d-flex justify-content-center my-2'>
+            <button type='button' class='btn btn-primary btn-circle ' style='line-height: 0.7; font-size: 26px; margin: 0;'><i class="bi-plus"></i></button>
+          </div>
+        </div>
+        <div class="col contaiter-fluid d-flex"
+            style='flex-direction: row;'>
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

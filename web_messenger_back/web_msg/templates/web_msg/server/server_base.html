@@ -1,47 +1,90 @@
-{% extends "web_msg/base.html" %}
-{% load bootstrap5 %}
+{% extends "web_msg/base_extend.html" %}
 {% load static %}
 
+{% block title %}<title>{{server.title}}</title>{% endblock %}
+
 {% block content %}
-<body>
-    {% block title_pblock %} 
-        <h1>{{server.title}}</h1>
-    {% endblock title_pblock %}
-    
-    <table cellpadding="5" cellspacing="0">
-        <tr>
-         <td id="channels_block">
-            <div > Текстовые каналы
-                <ul>
-                    {% block channel_pblock %} 
-                        {% for c in server.channel_set.all %}
-                            <li>
-                                <a href="{% url "channel-detail" c.id%}">{{c.title}}</a>
-                            </li>
-                        {% endfor %}
-                    {% endblock channel_pblock %}
-                    {% comment %} Он ими не заполяет. Тк расширяет, но данных для запонления нету. {% endcomment %}
-                </ul>
-            </div>
-         </td>
-    
-         <td id="chat_block">
-            <div>{% block message_pblock %} {% endblock message_pblock %} </div>
-         </td>
-         
-         <td id="users_block">
-            <div >
-                {% block user_pblock %} 
-                    <ul>
-                        {% for su in serveruser %}
-                            <li>{{su.username_local}}</li>
-                        {% endfor %}
-                    </ul>
-                {% endblock user_pblock %}
-            </div>
-         </td>
-        </tr>
-    </table>
-    </body>
-  
+    <div class='row flex-fill d-flex flex-column text-white'>
+      <div class='p-0 flex-fill d-flex' 
+          style='flex-direction: row; 
+                max-height: 40px;'>
+        <div class='p-1'
+            style='width: 14%;
+                  background-color: #414141;
+                  border-top-left-radius: 8px;'>
+                  <h4 class='px-2'>{{server.title}}</h4>
+        </div>
+
+        <div class='p-1'
+            style='width: 72%;
+                  background-color: #5c5c5c;'>
+                  <h5 class='px-2 py-1'>{{channeltext.title}}</h5>
+        </div>
+
+        <div class='p-1'
+            style='width: 14%;
+                  background-color: #5c5c5c;'>
+                  Test
+        </div>
+      </div>
+
+
+      <div class="p-0 flex-fill d-flex" style='flex-direction: row;'>
+          {% block channels %}
+          <div class='text-white p-2'
+              style='width: 14%;
+                    background-color: #414141; 
+                    border-bottom-left-radius: 8px;
+                    box-shadow: 0px 2px 2px 0px rgba(30, 30, 30, 0.5) inset;'>
+                  {% for channel in server.channel_set.all %}
+                      <a href="{% url "channel-detail" server.id channel.id %}" 
+                        class='btn btn-secondary w-100 text-white text-start'
+                        style='margin-bottom: 0.2rem;
+                              line-height: 1rem;
+                              {% if channel.id != channeltext.id %}
+                              --bs-btn-bg: #414141;
+                              --bs-btn-border-color: #414141;
+                              --bs-btn-hover-bg: #6A6A6A;
+                              --bs-btn-hover-border-color: #6A6A6A;
+                              {% else %}
+                              --bs-btn-bg: #6A6A6A;
+                              --bs-btn-border-color: #6A6A6A;
+                              --bs-btn-hover-bg: #6A6A6A;
+                              --bs-btn-hover-border-color: #6A6A6A;
+                              {% endif %}'>
+                              {{channel.title}}
+                      </a>
+                  {% endfor %}
+          </div>
+          {% endblock %}
+      
+          <div class='text-white' 
+              style='background-color: #5c5c5c; 
+                    width: 72%;
+                    box-shadow: 0px 2px 2px 0px rgba(30, 30, 30, 0.5) inset;'>
+              <div>{% block message_pblock %}{% endblock %} </div>
+          </div>
+          
+          <div class='text-white p-2' 
+              style='width: 14%; 
+                    background-color: #414141;
+                    box-shadow: 0px 2px 2px 0px rgba(30, 30, 30, 0.5) inset;'>
+              <div>
+                {% for user_in_server in server.serveruser_set.all %}
+                  <button type='button' href="#" 
+                    class='btn btn-secondary w-100 text-white text-start'
+                    style='margin-bottom: 0.2rem;
+                          line-height: 1rem;
+                          --bs-btn-bg: #414141;
+                          --bs-btn-border-color: #414141;
+                          --bs-btn-hover-bg: #6A6A6A;
+                          --bs-btn-hover-border-color: #6A6A6A;'>
+                    <img src="{{ user_in_server.user.avatar.url }}" alt="" width="32" height="32" class="rounded-circle ms-2">
+                    {{ user_in_server.username_local }}
+                  </button>
+                {% endfor %}
+              </div>
+          </div>
+      </div>
+    </div>
 {% endblock %}
