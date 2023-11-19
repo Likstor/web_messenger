@@ -30,3 +30,4 @@ class Home(LoginRequiredMixin, ListView):
     #             return render(request, 'web_msg/home.html', {'server_create_form': server_create_form})
 
 
+

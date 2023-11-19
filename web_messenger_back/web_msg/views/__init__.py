@@ -3,3 +3,4 @@ from .home import Home
 from .account import sign_up
 from .server_page import ServerDetailView
 from .channel_text import ChannelTextDetailView
+from .controller import ServerUserInfo
