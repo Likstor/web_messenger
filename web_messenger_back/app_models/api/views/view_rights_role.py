@@ -1,6 +1,6 @@
 from rest_framework import generics
-from ...models import ServerUser, User, Server
-from ..serializers import ServerUserSerializer
+from ...models import RightsRole
+from ..serializers import RightsRoleSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,17 +9,17 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
     
-class ServerUserView(APIView):
-    queryset = ServerUser.objects.all()
-    serializer_class = ServerUserSerializer
+class RightsRoleView(APIView):
+    queryset = RightsRole.objects.all()
+    serializer_class = RightsRoleSerializer
     
     def get(self, request):
-        server_users = ServerUser.objects.all()
-        serializer = ServerUserSerializer(server_users, many=True)
+        rights_roles = RightsRole.objects.all()
+        serializer = RightsRoleSerializer(rights_roles, many=True)
         return Response(serializer.data)
     
     def post(self, request, format=None):
-        serializer = ServerUserSerializer(data=request.data)
+        serializer = RightsRoleSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)        

@@ -1,6 +1,6 @@
 from rest_framework import generics
-from ...models import ServerUser, User, Server
-from ..serializers import ServerUserSerializer
+from ...models import MessageReply
+from ..serializers import MessageReplySerializer
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,17 +9,17 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
     
-class ServerUserView(APIView):
-    queryset = ServerUser.objects.all()
-    serializer_class = ServerUserSerializer
+class MessageReplyView(APIView):
+    queryset = MessageReply.objects.all()
+    serializer_class = MessageReplySerializer
     
     def get(self, request):
-        server_users = ServerUser.objects.all()
-        serializer = ServerUserSerializer(server_users, many=True)
+        message_replies = MessageReply.objects.all()
+        serializer = MessageReplySerializer(message_replies, many=True)
         return Response(serializer.data)
     
     def post(self, request, format=None):
-        serializer = ServerUserSerializer(data=request.data)
+        serializer = MessageReplySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)        
