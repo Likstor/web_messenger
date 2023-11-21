@@ -39,8 +39,11 @@
 <div >
     <input id="id_message_send_input" type="text" maxlength="100" cols="40" rows="5"/>
     <button id="id_message_send_button" type="submit">Отправить</button>
+    {{ channel_id|json_script:"channel-id" }}
     <script>
-        const chatSocket = new WebSocket("ws://" + window.location.host + "/");
+        const channelId = JSON.parse(document.getElementById('channel-id').textContent);
+        const chatSocket = new WebSocket("ws://" + window.location.host + "/channel/" + channelId);
+
         chatSocket.onopen = function (e) {
             console.log("The connection was setup successfully !");
         };
@@ -60,7 +63,7 @@
             var messageInput = document.querySelector(
             "#id_message_send_input"
             ).value;
-            chatSocket.send(JSON.stringify({ message: messageInput, username : "{{request.user.username}}"}));
+            chatSocket.send(JSON.stringify({ message: messageInput, username : "{{request.user.id}}"}));
         };
 
         chatSocket.onmessage = function (e) {

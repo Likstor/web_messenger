@@ -56,6 +56,7 @@ AUTH_USER_MODEL = 'app_models.User'
 
 INSTALLED_APPS = [
     "daphne",
+    # "chat",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -164,6 +165,9 @@ LOGOUT_REDIRECT_URL = 'login-user'
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
 }

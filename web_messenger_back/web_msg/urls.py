@@ -54,7 +54,11 @@ urlpatterns = [
              ), 
          name='password_reset_complete', ),
 
-    path('server/<int:pk>/',views.ServerDetailView.as_view(), name='server-detail'),
-    path('channel/<int:pk>/', views.ChannelTextDetailView.as_view(), name='channel-detail'),
-    path('123/', views.chatPage, name='chat-page')
+    path('server/<int:pk>/',
+         views.ServerDetailView.as_view(),
+         name='server-detail'),
+    
+    path('channel/<int:pk>/',
+         views.ChannelTextDetailView.as_view(),
+         name='channel-detail'),
 ]
