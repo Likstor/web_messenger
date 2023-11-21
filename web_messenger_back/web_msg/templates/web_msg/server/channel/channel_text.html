@@ -3,9 +3,10 @@
 {% load static %}
 
 {% block title_pblock %} 
+    
+    
     <h1>{{channeltext.title}}</h1>
 {% endblock title_pblock %}
-
 
 {% block channel_pblock %} 
     {% for c in channeltext.server.channel_set.all %}
@@ -15,7 +16,6 @@
     {% endfor %}
 {% endblock channel_pblock %}
 
-
 {% block user_pblock %} 
         <ul>
             {% for su in channeltext.server.serveruser_set.all %}
@@ -24,9 +24,8 @@
         </ul>
 {% endblock user_pblock %}
 
-
 {% block message_pblock %}    
-<div id="messages_block">
+<div id="id_chat_item_container" class="chat__item__container">
     <ul>
         {% for m in channeltext.message_set.all %}
             <img height="40" width="40" src="{% static "web_msg/img/user_avatar.png"%}" />
@@ -38,7 +37,43 @@
 </div> 
 
 <div >
-    <textarea id="chat_input" type="text" maxlength="100" cols="40" rows="5"  required></textarea>
-    <button type="button" name="send" >Отправить</button>
+    <input id="id_message_send_input" type="text" maxlength="100" cols="40" rows="5"/>
+    <button id="id_message_send_button" type="submit">Отправить</button>
+    {{ channel_id|json_script:"channel-id" }}
+    <script>
+        const channelId = JSON.parse(document.getElementById('channel-id').textContent);
+        const chatSocket = new WebSocket("ws://" + window.location.host + "/channel/" + channelId);
+
+        chatSocket.onopen = function (e) {
+            console.log("The connection was setup successfully !");
+        };
+
+        chatSocket.onclose = function (e) {
+            console.log("Something unexpected happened !");
+        };
+
+        document.querySelector("#id_message_send_input").focus();
+        document.querySelector("#id_message_send_input").onkeyup = function (e) {
+            if (e.keyCode == 13) {
+            document.querySelector("#id_message_send_button").click();
+            }
+        };
+
+        document.querySelector("#id_message_send_button").onclick = function (e) {
+            var messageInput = document.querySelector(
+            "#id_message_send_input"
+            ).value;
+            chatSocket.send(JSON.stringify({ message: messageInput, username : "{{request.user.id}}"}));
+        };
+
+        chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            var div = document.createElement("div");
+            div.innerHTML = data.username + " : " + data.message;
+            document.querySelector("#id_message_send_input").value = "";
+            document.querySelector("#id_chat_item_container").appendChild(div);
+        };
+    </script>
 </div>
 {% endblock message_pblock %} 
+

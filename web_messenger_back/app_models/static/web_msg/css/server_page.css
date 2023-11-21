@@ -22,7 +22,7 @@ TD {
     vertical-align: bottom;
 }
 
-#chat_input{
+#id_message_send_input{
     width: 92.6%;
     max-height: 150px;
     resize: none;
