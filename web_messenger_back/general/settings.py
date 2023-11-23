@@ -14,6 +14,9 @@ from pathlib import Path
 from decouple import config, Csv
 import os
 from django.urls import reverse_lazy
+from corsheaders.defaults import default_methods
+from corsheaders.defaults import default_headers
+
 
 # base_dir and files/media root
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,12 +66,14 @@ INSTALLED_APPS = [
     'web_msg.apps.WebMsgConfig',
     'bootstrap5',
     'rest_framework',
+    "corsheaders",
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
 }
 
 MIDDLEWARE = [
@@ -79,6 +84,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'general.urls'
@@ -135,6 +142,25 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Cors
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
+
+CORS_URLS_REGEX = r"^/api/.*$"
+
+CORS_ALLOW_METHODS = (
+    *default_methods,
+)
+
+CORS_ALLOW_HEADERS = (
+    *default_headers,
+)
+
+CSRF_TRUSTED_ORIGINS = [
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

@@ -5,14 +5,10 @@ from app_models.models import Server
 from app_models.models import ChannelText
 from app_models.models import User
 from app_models.models import ServerUser
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-# class ServerDetailView(DetailView):
-#     model = Server
-#     template_name = "web_msg/server_page.html"
-#     context_object_name = "server"
-
-class ServerDetailView(DetailView):
+class ServerDetailView(LoginRequiredMixin, DetailView):
     model = Server
     template_name = "web_msg/server/server_base.html"
     context_object_name = "server"

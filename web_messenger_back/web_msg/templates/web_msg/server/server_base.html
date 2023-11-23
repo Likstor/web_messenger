@@ -24,17 +24,19 @@
         <div class='p-1'
             style='width: 14%;
                   background-color: #5c5c5c;'>
-                  Test
+                  <div style='margin-top: 0.2rem;
+                              margin-left: 0.2rem'>
+                  Members: {{ server.serveruser_set.count }}
+                  </div>
         </div>
       </div>
 
 
       <div class="p-0 flex-fill d-flex" style='flex-direction: row;'>
           {% block channels %}
-          <div class='text-white p-2'
-              style='width: 14%;
-                    background-color: #414141; 
-                    border-bottom-left-radius: 8px;
+          <div class='d-flex flex-column flex-fill justify-content-between' style='background-color: #414141;'>
+            <div class='overflow-auto scrbar d-flex flex-fill flex-column text-white p-2'
+              style='border-bottom-left-radius: 8px;
                     box-shadow: 0px 2px 2px 0px rgba(30, 30, 30, 0.5) inset;'>
                   {% for channel in server.channel_set.all %}
                       <a href="{% url "channel-detail" server.id channel.id %}" 
@@ -55,14 +57,33 @@
                               {{channel.title}}
                       </a>
                   {% endfor %}
+            </div>
+            <div class='d-flex justify-content-center my-2 px-4' style=''>
+              <button type='button'
+                    class='btn btn-secondary flex-fill' 
+                    style='line-height: 0.7; font-size: 26px; margin: 0;'
+                    data-bs-toggle="modal" 
+                    data-bs-target="#addChannel">
+              
+              <h6 style='line-height: 0.2;
+                        margin: 3px'>
+                add channel
+              </h6></i></button>
+            </div>
           </div>
           {% endblock %}
       
-          <div class='text-white' 
+          <div class='d-flex text-white' 
               style='background-color: #5c5c5c; 
                     width: 72%;
                     box-shadow: 0px 2px 2px 0px rgba(30, 30, 30, 0.5) inset;'>
-              <div>{% block message_pblock %}{% endblock %} </div>
+              <div class='flex-fill h-100'>
+                {% block message_pblock %}
+                  <div class='d-flex justify-content-center align-items-center h-100'>
+                    <h3 style='color: #464545;
+                              margin-bottom: 3rem'>Channel not selected</h3>
+                  </div>
+                {% endblock %} </div>
           </div>
           
           <div class='text-white p-2' 
@@ -87,4 +108,51 @@
           </div>
       </div>
     </div>
+
+
+<div class="modal fade" id="addChannel" tabindex="-1" aria-labelledby="addChannelLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header text-white" style='background-color: #00036c;'>
+        <h1 class="modal-title fs-5" id="addChannelLabel">New channel</h1>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style=''>
+        <div class='container-fluid d-flex'>
+          <div class='mx-2 row w-100'>
+            <form class="form-example p-0" id="addChannelForm">
+              <div class="mb-3">
+                <input type="text" 
+                      class="form-control form-control-lg w-100" 
+                      name='title' 
+                      id="title" 
+                      placeholder="channel title"
+                      autocomplete='off'>
+              </div>
+
+                  <button type="submit" class="btn btn-primary my-1 w-100">Create</button>
+            </form>
+
+            <script>
+              const addForm = document.getElementById("addChannelForm");
+
+              addForm.addEventListener('submit', async event => {
+                  event.preventDefault();
+
+                  var formData = new FormData(addForm);
+                  formData.append("server", "{{ server.id}}")
+
+                  const plainFormData = Object.fromEntries(formData.entries());
+
+                  postData('/api/text-channels/', plainFormData);
+                  window.location.reload()
+              });
+                      </script>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
