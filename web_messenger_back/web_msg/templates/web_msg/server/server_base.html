@@ -37,6 +37,7 @@
           <div class='d-flex flex-column flex-fill justify-content-between' style='background-color: #414141;'>
             <div class='overflow-auto scrbar d-flex flex-fill flex-column text-white p-2'
               style='border-bottom-left-radius: 8px;
+                    max-height: 82vh;
                     box-shadow: 0px 2px 2px 0px rgba(30, 30, 30, 0.5) inset;'>
                   {% for channel in server.channel_set.all %}
                       <a href="{% url "channel-detail" server.id channel.id %}" 
