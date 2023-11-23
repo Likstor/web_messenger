@@ -5,13 +5,15 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.authentication import BasicAuthentication
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 
     
 class ServerUserView(APIView):
     queryset = ServerUser.objects.all()
     serializer_class = ServerUserSerializer
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
     
     def get(self, request):
         server_users = ServerUser.objects.all()
