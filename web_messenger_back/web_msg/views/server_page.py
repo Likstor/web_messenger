@@ -9,14 +9,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class ServerDetailView(LoginRequiredMixin, View):
-    model = Server
     template_name = "web_msg/server/server_base.html"
-    context_object_name = "server"
     # print(dir(DetailView))
 
     def get(self, request, *args, **kwargs):
-        server = Server.objects.get(pk=kwargs['server_id'])
         try:
+            server = Server.objects.get(pk=kwargs['server_id'])
             su = server.serveruser_set.get(user=request.user.id)
         except:
             raise Http404
