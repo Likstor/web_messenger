@@ -25,7 +25,7 @@ class ChannelTextView(APIView):
         serializer = ChannelTextSerializer(data=request.data)
         
         if not request.user.id == Server.objects.get(pk=request.data['server']).id:
-            Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         
         if serializer.is_valid():
             serializer.save()

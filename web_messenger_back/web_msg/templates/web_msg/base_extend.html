@@ -80,10 +80,21 @@
       <div class="modal-body modal-dialog-centered" style=''>
         <div class='container-fluid d-flex'>
           <div class='mx-2 row w-100'>
-            <button type="button" class="btn btn-primary my-1">Join</button>
+            <form class="form-example p-0" id="joinServerForm">
+              <div class="mb-3">
+                <input type="text" 
+                      class="form-control form-control-lg w-100" 
+                      name='server' 
+                      id="server" 
+                      placeholder="server id"
+                      autocomplete='off'>
+              </div>
+
+                  <button type="submit" class="btn btn-primary my-1 w-100">join</button>
+            </form>
 
             <script>
-
+              postFormData('/api/server-users/', "createServerForm");
             </script>
 
           </div>

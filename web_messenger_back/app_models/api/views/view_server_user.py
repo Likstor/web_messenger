@@ -19,7 +19,10 @@ class ServerUserView(APIView):
         return Response(serializer.data)
     
     def post(self, request, format=None):
+        request.data['username_local'] = request.user.user_name
+        request.data['user'] = request.user.id
         serializer = ServerUserSerializer(data=request.data)
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)        
