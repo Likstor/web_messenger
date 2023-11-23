@@ -2,7 +2,22 @@ from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
 
+schema_view = get_schema_view(
+   openapi.Info(
+      title="ICQ:Isekai API",
+      default_version='v1',
+      description="don't click ⬇",
+      terms_of_service="https://takeb1nzyto.space/",
+      contact=openapi.Contact(email="nepishisudabolsheponyal@nahuy.da"),
+      license=openapi.License(name="EDIK PEDIK License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -66,4 +81,5 @@ urlpatterns = [
     path('server/<int:pk>/',views.ServerDetailView.as_view(), name='server-detail'),
     path('server/<int:server_id>/channel/<int:channel_id>/', views.ChannelTextDetailView.as_view(), name='channel-detail'),
     # path('channel/<int:pk>/', views.ChannelTextDetailView.as_view(), name='channel-detail'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui')
 ]

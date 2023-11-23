@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'web_msg.apps.WebMsgConfig',
     'bootstrap5',
     'rest_framework',
+    'drf_yasg'
 ]
 
 REST_FRAMEWORK = {
