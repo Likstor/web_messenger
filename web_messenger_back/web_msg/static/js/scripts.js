@@ -35,6 +35,7 @@ async function postFormData(url = '', formName) {
         const plainFormData = Object.fromEntries(formData.entries());
 
         postData(url, plainFormData);
-        window.location.reload()
+
+        window.location.reload();
     });
 }

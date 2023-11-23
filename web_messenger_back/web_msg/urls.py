@@ -62,6 +62,6 @@ urlpatterns = [
 
     # server
 
-    path('server/<int:pk>/',views.ServerDetailView.as_view(), name='server-detail'),
+    path('server/<int:server_id>/',views.ServerDetailView.as_view(), name='server-detail'),
     path('server/<int:server_id>/channel/<int:channel_id>/', views.ChannelTextDetailView.as_view(), name='channel-detail'),
 ]
