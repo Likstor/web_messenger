@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from drf_yasg.utils import swagger_auto_schema
     
 class RightsRoleView(APIView):
     queryset = RightsRole.objects.all()
@@ -17,7 +17,7 @@ class RightsRoleView(APIView):
         rights_roles = RightsRole.objects.all()
         serializer = RightsRoleSerializer(rights_roles, many=True)
         return Response(serializer.data)
-    
+    @swagger_auto_schema(request_body=RightsRoleSerializer)   
     def post(self, request, format=None):
         serializer = RightsRoleSerializer(data=request.data)
         if serializer.is_valid():

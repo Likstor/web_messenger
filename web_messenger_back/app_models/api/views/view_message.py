@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from drf_yasg.utils import swagger_auto_schema
     
 class MessageView(APIView):
     queryset = Message.objects.all()
@@ -17,7 +17,7 @@ class MessageView(APIView):
         messages = Message.objects.all()
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data)
-    
+    @swagger_auto_schema(request_body=MessageSerializer)    
     def post(self, request, format=None):
         serializer = MessageSerializer(data=request.data)
         if serializer.is_valid():

@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from drf_yasg.utils import swagger_auto_schema
     
 class PrivilegeView(APIView):
     queryset = Privilege.objects.all()
@@ -17,7 +17,7 @@ class PrivilegeView(APIView):
         privilegies = Privilege.objects.all()
         serializer = PrivilegeSerializer(privilegies, many=True)
         return Response(serializer.data)
-    
+    @swagger_auto_schema(request_body=PrivilegeSerializer)    
     def post(self, request, format=None):
         serializer = PrivilegeSerializer(data=request.data)
         if serializer.is_valid():

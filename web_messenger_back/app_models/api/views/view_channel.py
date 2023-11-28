@@ -17,7 +17,7 @@ class ChannelView(APIView):
         channels = Channel.objects.all()
         serializer = ChannelSerializer(channels, many=True)
         return Response(serializer.data)
-    
+    @swagger_auto_schema(request_body=ChannelSerializer)    
     def post(self, request, format=None):
         serializer = ChannelSerializer(data=request.data)
         if serializer.is_valid():

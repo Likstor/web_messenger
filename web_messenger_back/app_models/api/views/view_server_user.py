@@ -6,7 +6,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
-
     
 class ServerUserView(APIView):
     queryset = ServerUser.objects.all()
@@ -16,7 +15,6 @@ class ServerUserView(APIView):
         server_users = ServerUser.objects.all()
         serializer = ServerUserSerializer(server_users, many=True)
         return Response(serializer.data)
-    
     @swagger_auto_schema(request_body=ServerUserSerializer)   
     def post(self, request, format=None):
         serializer = ServerUserSerializer(data=request.data)

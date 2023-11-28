@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from drf_yasg.utils import swagger_auto_schema
     
 class ChannelVoiceView(APIView):
     queryset = ChannelVoice.objects.all()
@@ -17,7 +17,7 @@ class ChannelVoiceView(APIView):
         channel_voices = ChannelVoice.objects.all()
         serializer = ChannelVoiceSerializer(channel_voices, many=True)
         return Response(serializer.data)
-    
+    @swagger_auto_schema(request_body=ChannelVoiceSerializer)    
     def post(self, request, format=None):
         serializer = ChannelVoiceSerializer(data=request.data)
         if serializer.is_valid():
