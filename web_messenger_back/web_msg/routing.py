@@ -3,5 +3,6 @@ from django.urls import path
 from . import consumers
 
 websocket_urlpatterns = [
-    path(r"channel/<int:channel_id>", consumers.ChatConsumer.as_asgi()),
+    path(r"channeltext/<int:channel_id>", consumers.ChatConsumer.as_asgi()),
+    path(r"channelvoice/<int:channel_id>", consumers.ChatConsumer.as_asgi()),
 ]

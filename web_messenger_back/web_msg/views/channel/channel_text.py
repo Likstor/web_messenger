@@ -1,6 +1,7 @@
 from django.views.generic import DetailView
 from app_models.models.channel.channel_text import ChannelText
 
+
 class ChannelTextDetailView(DetailView):
     model = ChannelText
     template_name = "web_msg/server/channel/channel_text.html"

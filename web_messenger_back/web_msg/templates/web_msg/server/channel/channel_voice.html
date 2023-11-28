@@ -3,32 +3,35 @@
 {% load static %}
 
 {% block title_pblock %} 
-    <h1>{{channeltext.title}}</h1>
+    <h1>{{channelvoice.title}}</h1>
 {% endblock title_pblock %}
 
 {% block channel_pblock %} 
-    {% for c in channeltext.server.channel_set.all %}
+    {% for c in channelvoice.server.channel_set.all %}
         <li>
-            <a href="{% url "channeltext-detail" c.id%}">{{c.title}}</a>
+            <a href="{% url "channelvoice-detail" c.id%}">{{c.title}}</a>
         </li>
     {% endfor %}
 {% endblock channel_pblock %}
 
 {% block user_pblock %} 
         <ul>
-            {% for su in channeltext.server.serveruser_set.all %}
+            {% for su in channelvoice.server.serveruser_set.all %}
                 <li>{{su.username_local}}</li>
             {% endfor %}
         </ul>
 {% endblock user_pblock %}
 
-{% block message_pblock %}    
-<div id="id_chat_item_container" class="chat__item__container">
+{% block message_pblock %}   
+
+
+
+
+{% comment %} <div id="id_chat_item_container" class="chat__item__container">
     <ul>
         {% for m in channeltext.message_set.all %}
             <img height="40" width="40" src="{% static "web_msg/img/user_avatar.png"%}" />
             <a>{{m.user}}</a>
-            {% comment %} not local user name{% endcomment %}
             <li>{{m.text}}</li>
         {% endfor %}
     </ul>
@@ -72,6 +75,6 @@
             document.querySelector("#id_chat_item_container").appendChild(div);
         };
     </script>
-</div>
+</div> {% endcomment %}
 {% endblock message_pblock %} 
 

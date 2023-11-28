@@ -60,5 +60,9 @@ urlpatterns = [
     
     path('channel/<int:pk>/',
          views.ChannelTextDetailView.as_view(),
-         name='channel-detail'),
+         name='channeltext-detail'),
+    
+     path('channelvoice/<int:pk>/',
+         views.ChannelVoiceDetailView.as_view(),
+         name='channelvoice-detail')
 ]

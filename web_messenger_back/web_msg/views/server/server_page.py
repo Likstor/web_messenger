@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views.generic import DetailView, View
 from app_models.models import Server
 from app_models.models import ChannelText
+from app_models.models import ChannelVoice
 from app_models.models import User
 from app_models.models import ServerUser
 
@@ -27,7 +28,8 @@ class ServerDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         # context = {'users_list': User.objects.all()}
         context['server'] = context['object']
-        context['serveruser'] = serveruser
+        # context['channeltext'] = ChannelText.objects.filter(server=context['server'])
+        context['channelvoice'] = serveruser
         context['user'] = user
 
         # context['channeltext'] = ChannelText.objects.get()
