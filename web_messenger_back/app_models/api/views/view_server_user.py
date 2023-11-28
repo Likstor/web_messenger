@@ -6,11 +6,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 from django.http import Http404
     
 class ServerUserListView(APIView):
     queryset = ServerUser.objects.all()
     serializer_class = ServerUserSerializer
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
     
     def get(self, request, format=None):
         server_users = Server.objects.all()
@@ -19,7 +24,10 @@ class ServerUserListView(APIView):
 
     @swagger_auto_schema(request_body=ServerUserSerializer)
     def post(self, request, format=None):
+        request.data['username_local'] = request.user.user_name
+        request.data['user'] = request.user.id
         serializer = ServerUserSerializer(data=request.data)
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)        
