@@ -15,8 +15,8 @@ class StatusListView(APIView):
     serializer_class = StatusSerializer
     
     def get(self, request, format=None):
-        users = Status.objects.all()
-        serializer = StatusSerializer(users, many=True)
+        statuses = Status.objects.all()
+        serializer = StatusSerializer(statuses, many=True)
         return Response(serializer.data)
 
     @swagger_auto_schema(request_body=StatusSerializer)
@@ -38,13 +38,13 @@ class StatusDetailView(APIView):
             raise Http404
     
     def get(self, request, pk, format=None):
-        user = self.get_object(pk)
-        serializer = StatusSerializer(user)
+        status = self.get_object(pk)
+        serializer = StatusSerializer(status)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        user = self.get_object(pk)
-        serializer = StatusSerializer(user, data=request.data)
+        status = self.get_object(pk)
+        serializer = StatusSerializer(status, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
