@@ -2,6 +2,8 @@ body, main {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    max-height: 100%;
+    max-width: 100%;
     margin: 0;
     padding: 0;
 }
@@ -18,4 +20,13 @@ body, main {
 
 .container-fluid {
     flex: 1;
+}
+
+.scrbar::-webkit-scrollbar {
+    display: none;
+}
+
+.scrbar {
+    -ms-overflow-style: none;
+    scrollbar-width: 0;
 }

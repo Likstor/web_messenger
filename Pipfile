@@ -15,6 +15,9 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 drf-yasg = "*"
+django-cors-headers = "*"
+daphne = "*"
+channels = {extras = ["daphne"], version = "*"}
 
 [dev-packages]
 aiosmtpd = "*"

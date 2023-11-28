@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 urlpatterns = [
     path('', views.index, name='index'),
     
+    # sign in and sign up
+    
     path('sign-in/', 
          auth_views.LoginView.as_view(
              template_name="web_msg/account/sign_in.html",
@@ -26,9 +28,12 @@ urlpatterns = [
          login_required(views.Home.as_view()), 
          name='home'),
     
-    # password change
+    # account 
+
+    path('account/profile/',
+         views.ProfileDetailView.as_view(),
+         name='profile'),
     
-    # password reset
     path('password-reset', 
          auth_views.PasswordResetView.as_view(
              template_name='web_msg/account/password_reset/password_reset_form.html',
@@ -53,16 +58,9 @@ urlpatterns = [
              template_name='web_msg/account/password_reset/password_reset_complete.html'
              ), 
          name='password_reset_complete', ),
-    
-    # account
-    
-    path('account/profile/',
-         views.profile,
-         name='profile'),
-    
+
     # server
 
-    path('server/<int:pk>/',views.ServerDetailView.as_view(), name='server-detail'),
+    path('server/<int:server_id>/',views.ServerDetailView.as_view(), name='server-detail'),
     path('server/<int:server_id>/channel/<int:channel_id>/', views.ChannelTextDetailView.as_view(), name='channel-detail'),
-    # path('channel/<int:pk>/', views.ChannelTextDetailView.as_view(), name='channel-detail'),
 ]

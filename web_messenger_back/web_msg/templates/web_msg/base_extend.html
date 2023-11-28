@@ -3,13 +3,13 @@
 {% block base_main %}
     <div class="container-fluid d-flex flex-column bg-dark">
       <div class="row flex-fill d-flex">
-        <div class="col text-white d-flex flex-column justify-content-between" style='max-width: 77px'>
-          <div class='d-flex justify-content-center py-1'>
-            <div class='scrollarea'>
+        <div class="text-white d-flex flex-column justify-content-between" style='max-width: 77px;  padding-left: 0px; padding-right: 0px; height 100vh;'>
+          <div class='d-flex flex-column align-items-center py-1' style='max-height: 82vh; margin-top: 5px'>
+            <div class='overflow-auto scrbar d-flex flex-column align-items-center' style='width: 60px'>
               {% for su in user.serveruser_set.all %}
-              <div class='row d-flex align-items-start py-1'>
+              <div class='py-1 px-1'>
 
-                <a role='button' href='{% url "server-detail" su.server.pk %}' 
+                <a role='button' href='{% url "server-detail" su.server.id %}' 
                     class='btn 
                         btn-{%cycle 'warning' 'primary' 'danger' 'secondary' 'info' %} 
                         btn-circle 
@@ -20,7 +20,7 @@
                           font-size: 26px; 
                           margin: 0; 
                           white-space: nowrap;
-                          {% if server.pk == su.server.pk %}
+                          {% if server.id == su.server.id %}
                           outline: 0.2rem solid white;
                           {% endif %}'>
                     <i class="bi bi-people-fill text-white"></i>
@@ -28,10 +28,13 @@
               </div>
               {% endfor %}
             </div>
-            <hr>
           </div>
-          <div class='d-flex justify-content-center my-2'>
-            <button type='button' class='btn btn-primary btn-circle ' style='line-height: 0.7; font-size: 26px; margin: 0;'><i class="bi-plus"></i></button>
+          <div class='d-flex justify-content-center my-2' style=''>
+            <button type='button'
+                   class='btn btn-primary btn-circle' 
+                   style='line-height: 0.7; font-size: 26px; margin: 0;'
+                   data-bs-toggle="modal" 
+                   data-bs-target="#createOrJoin"><i class="bi-plus"></i></button>
           </div>
         </div>
         <div class="col contaiter-fluid d-flex"
@@ -41,5 +44,99 @@
         </div>
       </div>
     </div>
+
+<div class="modal fade" id="createOrJoin" tabindex="-1" aria-labelledby="createOrJoinLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style=''>
+    <div class="modal-content">
+      <div class="modal-header text-white" style='background-color: #00036c;'>
+        <h1 class="modal-title fs-5" id="createOrJoinLabel">Create or join server</h1>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style=''>
+        <div class='container-fluid d-flex'>
+          <div class='mx-2 row w-100'>
+          <button type="button" 
+                  class="btn btn-primary my-1"
+                  data-bs-toggle="modal" 
+                  data-bs-target="#create">Create</button>
+          <button type="button" 
+                  class="btn btn-primary my-1"
+                  data-bs-toggle="modal" 
+                  data-bs-target="#join">Join</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="join" tabindex="-1" aria-labelledby="joinLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header text-white" style='background-color: #00036c;'>
+        <h1 class="modal-title fs-5" id="joinLabel">Join server</h1>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modal-dialog-centered" style=''>
+        <div class='container-fluid d-flex'>
+          <div class='mx-2 row w-100'>
+            <form class="form-example p-0" id="joinServerForm">
+              <div class="mb-3">
+                <input type="text" 
+                      class="form-control form-control-lg w-100" 
+                      name='server' 
+                      id="server" 
+                      placeholder="server id"
+                      autocomplete='off'>
+              </div>
+
+                  <button type="submit" class="btn btn-primary my-1 w-100">join</button>
+            </form>
+
+            <script>
+              postFormData('/api/server-users/', "joinServerForm");
+            </script>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="create" tabindex="-1" aria-labelledby="createLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header text-white" style='background-color: #00036c;'>
+        <h1 class="modal-title fs-5" id="createLabel">Create server</h1>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style=''>
+        <div class='container-fluid d-flex'>
+          <div class='mx-2 row w-100'>
+            <form class="form-example p-0" id="createServerForm">
+              <div class="mb-3">
+                <input type="text" 
+                      class="form-control form-control-lg w-100" 
+                      name='title' 
+                      id="title" 
+                      placeholder="server title"
+                      autocomplete='off'>
+              </div>
+
+                  <button type="submit" class="btn btn-primary my-1 w-100">Create</button>
+            </form>
+
+            <script>
+              postFormData('/api/servers/', "createServerForm");
+            </script>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}
