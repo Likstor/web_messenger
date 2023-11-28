@@ -1,21 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.views.generic import DetailView
+from django.views.generic import View
 from app_models.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-@login_required
-def profile(request):
-    return render(request, 'web_msg/account/profile.html', {'section': 'account'})
-
-
-class ProfileDetailView(DetailView):
-    model = User
-    template_name = "web_msg/server/channel/channel_text.html"
-    context_object_name = ""
+class ProfileDetailView(LoginRequiredMixin, View):
+    template_name = "web_msg/account/profile.html"
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        server = context['channeltext'].server
-        context['server'] = server
-        return context
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)

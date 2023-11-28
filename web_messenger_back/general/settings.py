@@ -14,6 +14,9 @@ from pathlib import Path
 from decouple import config, Csv
 import os
 from django.urls import reverse_lazy
+from corsheaders.defaults import default_methods
+from corsheaders.defaults import default_headers
+
 
 # base_dir and files/media root
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,6 +55,8 @@ AUTH_USER_MODEL = 'app_models.User'
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
+    # "chat",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,12 +69,14 @@ INSTALLED_APPS = [
     'bootstrap5',
     'rest_framework',
     'drf_yasg'
+    "corsheaders",
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
 }
 
 MIDDLEWARE = [
@@ -80,6 +87,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'general.urls'
@@ -136,6 +145,25 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Cors
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
+
+CORS_URLS_REGEX = r"^/api/.*$"
+
+CORS_ALLOW_METHODS = (
+    *default_methods,
+)
+
+CORS_ALLOW_HEADERS = (
+    *default_headers,
+)
+
+CSRF_TRUSTED_ORIGINS = [
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -158,3 +186,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ASGI_APPLICATION = 'web_msg.asgi.application'
+
+# LOGIN_REDIRECT_URL = ''
+
+LOGOUT_REDIRECT_URL = 'login-user'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
