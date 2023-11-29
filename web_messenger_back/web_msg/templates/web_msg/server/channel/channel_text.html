@@ -26,9 +26,8 @@
 <div id="id_chat_item_container" class="chat__item__container">
     {% for m in channeltext.message_set.all %}
     <div>
-        <img height="40" width="40" src="media/default/user_avatar.png" />
-        <a>{{m.user}}</a>
-        {% comment %} not local user name{% endcomment %}
+        <img height="40" width="40" src="/media/{{m.user.avatar}}" />
+        <a>{{m.user.serveruser_set.all.get}}</a>
         <li>{{m.text}}</li>
     </div>
     {% endfor %}
@@ -39,17 +38,14 @@
     <button id="id_message_send_button" type="submit">Отправить</button>
     {{ channel_id|json_script:"channel-id"}}
     {{ user_id|json_script:"user-id" }}
-    {{ username|json_script:"user-namelocal" }}
 
     <script>
         const channelId = JSON.parse(document.getElementById('channel-id').textContent);
         const userlId = "{{request.user.id}}";
-        const usernamelocal = JSON.parse(document.getElementById('user-namelocal').textContent);
         const chatSocket = new WebSocket("ws://" + window.location.host + "/channel/" + channelId);
 
         chatSocket.onopen = function (e) {
             console.log("The connection was setup successfully !");
-            console.log(usernamelocal);
         };
 
         chatSocket.onclose = function (e) {
@@ -72,7 +68,6 @@
 
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
-            console.log(data);
 
             var li = document.createElement("li");
             var avatar =  new Image(40, 40);;
