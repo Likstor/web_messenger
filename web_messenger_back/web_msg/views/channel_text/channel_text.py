@@ -9,9 +9,5 @@ class ChannelTextDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = User.objects.get(pk=self.request.user.pk)
-        
         context['channel_id'] = context['object'].pk
-        # context['userlocalname'] = user.serveruser_set.get(server_id= context['object'].server_id)
-        # print(f"AAAA {context['userlocalname']}")
         return context

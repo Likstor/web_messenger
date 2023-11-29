@@ -161,7 +161,7 @@ ASGI_APPLICATION = 'web_msg.asgi.application'
 
 # LOGIN_REDIRECT_URL = ''
 
-LOGOUT_REDIRECT_URL = 'login-user'
+# LOGOUT_REDIRECT_URL = 'login-user'
 
 CHANNEL_LAYERS = {
     "default": {
