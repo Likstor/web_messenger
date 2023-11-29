@@ -9,6 +9,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 from django.http import Http404
+from drf_yasg import openapi
 
 class ServerListView(APIView):
     queryset = Server.objects.all()
@@ -16,8 +17,19 @@ class ServerListView(APIView):
     authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated]
     
+    @swagger_auto_schema(manual_parameters=[
+        openapi.Parameter(
+            in_=openapi.IN_QUERY,
+            name='owner',
+            type=openapi.TYPE_STRING,
+            description='server owner',
+        )
+    ])
     def get(self, request, format=None):
-        servers = Server.objects.all()
+        if (request.query_params):
+            servers = Server.objects.filter(owner=request.GET.get('owner'))
+        else:
+            servers = Server.objects.all()
         serializer = ServerSerializer(servers, many=True)
         return Response(serializer.data)
 
@@ -59,3 +71,8 @@ class ServerDetailView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk, format=None):
+        server = self.get_object(pk)
+        server.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

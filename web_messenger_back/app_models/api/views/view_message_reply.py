@@ -9,13 +9,25 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 from django.http import Http404
+from drf_yasg import openapi
     
 class MessageReplyListView(APIView):
     queryset = MessageReply.objects.all()
     serializer_class = MessageReplySerializer
     
+    @swagger_auto_schema(manual_parameters=[
+        openapi.Parameter(
+            name='user',
+            in_=openapi.IN_QUERY,
+            description="messages of person",
+            type=openapi.TYPE_STRING,
+        )
+    ])
     def get(self, request, format=None):
-        message_replies = MessageReply.objects.all()
+        if request.query_params:
+            message_replies = MessageReply.objects.filter(user=request.GET.get('user'))
+        else:
+            message_replies = MessageReply.objects.all()
         serializer = MessageReplySerializer(message_replies, many=True)
         return Response(serializer.data)
 
@@ -49,3 +61,8 @@ class MessageReplyDetailView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk, format=None):
+        message_reply = self.get_object(pk)
+        message_reply.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

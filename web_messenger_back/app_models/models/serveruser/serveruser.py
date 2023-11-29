@@ -9,7 +9,7 @@ from ..role.role import Role
 class ServerUser(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     server = models.ForeignKey(Server, on_delete=models.CASCADE, null=True)
-    username_local = models.CharField(_('username local'), max_length=30, null=True, blank=True)
+    username_local = models.CharField(_('username local'), max_length=30, null=True)
     is_banned = models.BooleanField(_('is banned'), default=False)
     data_banned = models.DateTimeField(_('date banned'), null=True, blank=True)
     is_muted = models.BooleanField(_('is muted'), default=False)

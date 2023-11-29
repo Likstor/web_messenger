@@ -9,13 +9,25 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 from django.http import Http404
+from drf_yasg import openapi
     
 class RoleListView(APIView):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
     
+    @swagger_auto_schema(manual_parameters=[
+        openapi.Parameter(
+            name='server',
+            description='roles from server',
+            in_=openapi.IN_QUERY,
+            type=openapi.TYPE_STRING,
+        )
+    ])
     def get(self, request, format=None):
-        roles = Role.objects.all()
+        if (request.query_params):
+            roles = Role.objects.filter(server=request.GET.get('server'))
+        else:
+            roles = Role.objects.all()
         serializer = RoleSerializer(roles, many=True)
         return Response(serializer.data)
 
@@ -49,3 +61,8 @@ class RoleDetailView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk, format=None):
+        role = self.get_object(pk)
+        role.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

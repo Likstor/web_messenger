@@ -1,6 +1,6 @@
 from rest_framework import generics
 from ...models import User
-from ..serializers import UserSerializer
+from ..serializers import UserSerializer, PatchUserSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -14,8 +14,32 @@ class UserListView(APIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
+    @swagger_auto_schema(manual_parameters=[
+        openapi.Parameter(
+            in_= openapi.IN_QUERY,
+            name= 'is_banned',
+            required=False,
+            type=openapi.TYPE_STRING,
+            description="t or f",
+        ),
+        openapi.Parameter(
+            in_ = openapi.IN_QUERY,
+            name= 'is_active',
+            type = openapi.TYPE_STRING,
+            description="t or f",
+        )
+    ])
     def get(self, request, format=None):
-        users = User.objects.all()
+        if request.query_params:
+            if request.query_params.get('is_banned'):
+                if request.query_params.get('is_active'):
+                    users = User.objects.filter(is_banned=request.GET.get('is_banned'), is_active=request.GET.get('is_active'))
+                else:
+                    users = User.objects.filter(is_banned=request.GET.get('is_banned'))
+            elif request.query_params.get('is_active'):
+                users = User.objects.filter(is_active=request.GET.get('is_active'))
+        else:
+            users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
@@ -42,23 +66,7 @@ class UserDetailView(APIView):
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
-    # @swagger_auto_schema(request_body=openapi.Schema(
-    #     type=openapi.TYPE_OBJECT,
-    #     properties={
-    #         'email': openapi.Schema(type=openapi.TYPE_STRING, description="person email"),
-    #         'password': openapi.Schema(type=openapi.TYPE_STRING, description="password person"),
-    #     },
-    #     required=['email', 'password'],
-    # ))
-    # @swagger_auto_schema(manual_parameters=[
-    #     openapi.Parameter(
-    #         in_= openapi.IN_QUERY,
-    #         name= 'email',
-    #         required=True,
-    #         type=openapi.TYPE_STRING,
-    #         description="email",
-    #     )
-    # ])
+    @swagger_auto_schema(request_body=UserSerializer)
     def put(self, request, pk, format=None):
         user = self.get_object(pk)
         serializer = UserSerializer(user, data=request.data)
@@ -66,3 +74,17 @@ class UserDetailView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    @swagger_auto_schema(request_body=PatchUserSerializer)
+    def patch(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = PatchUserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk, format=None):
+        user = self.get_object(pk)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

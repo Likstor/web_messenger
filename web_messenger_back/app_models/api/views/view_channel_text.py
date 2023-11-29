@@ -9,16 +9,28 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 from django.http import Http404
-    
+from drf_yasg import openapi  
+
 class ChannelTextListView(APIView):
     queryset = ChannelText.objects.all()
     serializer_class = ChannelTextSerializer
     authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated]
     
+    @swagger_auto_schema(manual_parameters=[
+        openapi.Parameter(
+            name='server',
+            in_=openapi.IN_QUERY,
+            description="channels of server",
+            type=openapi.TYPE_STRING,
+        )
+    ])
     def get(self, request, format=None):
-        channel_texts = ChannelText.objects.all()
-        serializer = ChannelTextSerializer(channel_texts, many=True)
+        if request.query_params:
+            channels_texts = ChannelText.objects.filter(server=request.GET.get('server'))
+        else:
+            channels_texts = ChannelText.objects.all()
+        serializer = ChannelTextSerializer(channels_texts, many=True)
         return Response(serializer.data)
 
     @swagger_auto_schema(request_body=ChannelTextSerializer)
@@ -55,3 +67,8 @@ class ChannelTextDetailView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk, format=None):
+        channel_text = self.get_object(pk)
+        channel_text.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
