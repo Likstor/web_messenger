@@ -1,19 +1,33 @@
 from django.urls import path
-from .views import ServerUserView, RoleView, ServerView, ChannelView, UserView, PrivilegeView, ChannelTextView, ChannelVoiceView, RightsRoleView, RightsServerUserView, RightsView, MessageReplyView, MessageView, StatusView
+from .views import ServerUserDetailView, ServerUserListView, RoleDetailView, RoleListView, ServerDetailView, ServerListView, ChannelListView, ChannelDetailView, UserListView, UserDetailView, PrivilegeListView, PrivilegeDetailView, ChannelTextListView, ChannelTextDetailView, ChannelVoiceListView, ChannelVoiceDetailView, RightsRoleDetailView, RightsRoleListView, RightsServerUserDetailView, RightsServerUserListView, RightsDetailView, RightsListView, MessageReplyListView, MessageDetailView, MessageListView, MessageReplyDetailView, StatusDetailView, StatusListView
 
 urlpatterns = [
-    path('server-users/', ServerUserView.as_view()),
-    path('roles/', RoleView.as_view()),
-    path('servers/', ServerView.as_view()),
-    path('channels/', ChannelView.as_view()),
-    path('users/', UserView.as_view()),
-    path('text-channels/', ChannelTextView.as_view()),
-    path('voice-channels/', ChannelVoiceView.as_view()),
-    path('privilegies/', PrivilegeView.as_view()),
-    path('messages/', MessageView.as_view()),
-    path('reply-messages/', MessageReplyView.as_view()),
-    path('statuses/', StatusView.as_view()),
-    path('rights/', RightsView.as_view()),
-    path('rights-roles/', RightsRoleView.as_view()),
-    path('rights-server-users/', RightsServerUserView.as_view())
+    path('server-users/', ServerUserListView.as_view()),
+    path('server-users/<int:pk>/', ServerUserDetailView.as_view()),
+    path('roles/', RoleListView.as_view()),
+    path('roles/<int:pk>/', RoleDetailView.as_view()),
+    path('servers/', ServerListView.as_view()),
+    path('servers/<int:pk>/', ServerDetailView.as_view()),
+    path('channels/', ChannelListView.as_view()),
+    path('channels/<int:pk>/', ChannelDetailView.as_view()),
+    path('users/', UserListView.as_view()),
+    path('users/<int:pk>/', UserDetailView.as_view()),
+    path('text-channels/', ChannelTextListView.as_view()),
+    path('text-channels/<int:pk>/', ChannelTextDetailView.as_view()),
+    path('voice-channels/', ChannelVoiceListView.as_view()),
+    path('voice-channels/<int:pk>/', ChannelVoiceDetailView.as_view()),
+    path('privilegies/', PrivilegeListView.as_view()),
+    path('privilegies/<int:pk>/', PrivilegeDetailView.as_view()),
+    path('messages/', MessageListView.as_view()),
+    path('messages/<int:pk>/', MessageDetailView.as_view()),
+    path('reply-messages/', MessageReplyListView.as_view()),
+    path('reply-messages/<int:pk>/', MessageReplyDetailView.as_view()),
+    path('statuses/', StatusListView.as_view()),
+    path('statuses/<int:pk>/', StatusDetailView.as_view()),
+    path('rights/', RightsListView.as_view()),
+    path('rights/<int:pk>/', RightsDetailView.as_view()),
+    path('rights-roles/', RightsRoleListView.as_view()),
+    path('rights-roles/<int:pk>/', RightsRoleDetailView.as_view()),
+    path('rights-server-users/', RightsServerUserListView.as_view()),
+    path('rights-server-users/<int:pk>/', RightsServerUserDetailView.as_view())
 ]

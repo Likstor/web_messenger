@@ -21,10 +21,12 @@ from django.conf import settings
 from django.urls import include
 from django.views.generic import RedirectView
 from web_msg.views import index
+from app_models.api import schema
 
 urlpatterns = [
     path('', index),
     path('admin/', admin.site.urls),
     path('', include('web_msg.urls')),
     path('api/', include('app_models.api.urls')),
+    path('api/', schema.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

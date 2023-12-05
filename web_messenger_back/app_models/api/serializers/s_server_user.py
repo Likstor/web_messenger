@@ -12,3 +12,8 @@ class ServerUserSerializer(serializers.ModelSerializer):
                 fields=['user', 'server']
             )
         ]
+
+class PatchServerUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServerUser
+        fields = ('username_local', 'role')
