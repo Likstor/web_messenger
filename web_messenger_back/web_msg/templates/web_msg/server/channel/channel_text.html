@@ -6,22 +6,30 @@
 
 {% block message_pblock %}    
 <div id="id_chat_item_container" class="chat__item__container">
-    <ul>
-        {% for m in channeltext.message_set.all %}
-            <img height="40" width="40" src="{% static "web_msg/img/user_avatar.png"%}" />
-            <a>{{m.user}}</a>
-            {% comment %} not local user name{% endcomment %}
-            <li>{{m.text}}</li>
+    {% for m in channeltext.message_set.all %}
+    <div>
+        <img height="40" width="40" src="/media/{{m.user.avatar}}" />
+
+        {% for su_s in serveruser_server %}
+            {% if m.user.pk == su_s.user_id %}
+                <a>{{su_s.username_local}}</a>
+            {% endif %}
         {% endfor %}
-    </ul>
+        
+        <li>{{m.text}}</li>
+    </div>
+    {% endfor %}
 </div> 
 
 <div >
     <input id="id_message_send_input" type="text" maxlength="100" cols="40" rows="5"/>
     <button id="id_message_send_button" type="submit">Отправить</button>
-    {{ channeltext.id|json_script:"channel-id" }}
+    {{ channel_id|json_script:"channel-id"}}
+    {{ user_id|json_script:"user-id" }}
+
     <script>
         const channelId = JSON.parse(document.getElementById('channel-id').textContent);
+        const userlId = "{{request.user.id}}";
         const chatSocket = new WebSocket("ws://" + window.location.host + "/channel/" + channelId);
         
         chatSocket.onopen = function (e) {
@@ -43,14 +51,27 @@
             var messageInput = document.querySelector(
             "#id_message_send_input"
             ).value;
-            chatSocket.send(JSON.stringify({ message: messageInput, user: {{request.user.id}}}));
+            chatSocket.send(JSON.stringify({ message: messageInput, user_id: userlId}));
         };
 
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
-            console.log(data)
+
+            var li = document.createElement("li");
+            var avatar =  new Image(40, 40);;
+            var username_a = document.createElement("a");
             var div = document.createElement("div");
-            div.innerHTML = data.username + " : " + data.message;
+
+            avatar.setAttribute("src", data.avatar);
+            avatar.setAttribute("height", "40");
+            avatar.setAttribute("width", "40");
+            username_a.textContent  =  data.username;
+            li.innerHTML = data.message;
+            
+            div.appendChild(avatar);
+            div.appendChild(username_a);
+            div.appendChild(li);
+
             document.querySelector("#id_message_send_input").value = "";
             document.querySelector("#id_chat_item_container").appendChild(div);
         };
