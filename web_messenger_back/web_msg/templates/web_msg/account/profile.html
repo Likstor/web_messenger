@@ -4,7 +4,12 @@
 
 {% block base_main %}
 <div class='row align-content-center' style='width: 100%; height: 100%'>
-        <form class='col-7 p-4 border bg-body-tertiary mx-auto' style='background-color: #f9f9f9; border-radius: 1rem' method="put" action="#">
+        <form class='col-7 p-4 border bg-body-tertiary mx-auto' 
+              style='background-color: #f9f9f9; border-radius: 1rem' 
+              method="get" 
+              action=""
+              onsubmit="return false"
+              id="profileUpdate">
           <h1 class="py-4">Profile</h1>
           <div class='container'>
             <div class='row'>
@@ -13,8 +18,8 @@
                 <input type="text" 
                       class="form-control form-control-lg"
                       style='width: 80%' 
-                      name='username' 
-                      id="username" 
+                      id="user_name" 
+                      name='user_name'
                       placeholder="username"
                       autocomplete='off'>
                 </div>
@@ -22,8 +27,8 @@
                 <textarea type="text" 
                       class="form-control form-control-lg"
                       style='width: 80%' 
-                      name='description' 
                       id="description" 
+                      name='description'
                       placeholder="description"
                       autocomplete='off'
                       rows="6">
@@ -40,13 +45,15 @@
                                                             3px 3px 7px rgba(94, 104, 121, 0.377);'>
                 </div>
                 <div>
-                  <label for='avatarLoad' class='mx-auto btn btn-primary' style='width: 90%;'>Upload image</label>
+                  <label for='avatar' class='mx-auto btn btn-primary' style='width: 90%;'>Upload image</label>
                   <input class=''
                         style='display: none;'
                         type="file" 
-                        id="avatarLoad" 
+                        id="avatar"
+                        name='avatar' 
                         accept=".png, .jpg, .jpeg" 
-                        onchange="showPreview(event);">
+                        onchange="showPreview(event);"
+                        value="{{user.avatar}}">
                 </div>
               </div>
             </div>
@@ -61,6 +68,23 @@
 
 
 <script>
+  async function postDataFile(url = "", data = {}, type) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+        method: type,
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken'),
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: data,
+    });
+    return await response.json();
+}
+
   function showPreview(event){
     if(event.target.files.length > 0){
       const src = URL.createObjectURL(event.target.files[0]);
@@ -68,6 +92,21 @@
       preview.src = src;
   }
 }
+  
+  const addForm = document.getElementById("profileUpdate");
+
+  addForm.addEventListener('submit', async event => {
+      event.preventDefault();
+
+      const formData = new FormData(addForm);
+      const fileField = document.querySelector('input[type="file"]');
+
+      formData.append("avatar", fileField.files[0]);
+
+      const plainFormData = Object.fromEntries(formData.entries());
+
+      postData('/api/users/', plainFormData, "PATCH");
+  });
 </script>
 
 {% endblock %}

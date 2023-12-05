@@ -94,7 +94,8 @@
             </form>
 
             <script>
-              postFormData('/api/server-users/', "joinServerForm");
+              postFormData('/api/server-users/', "joinServerForm", "POST");
+              window.location.reload();
             </script>
 
           </div>
@@ -128,7 +129,8 @@
             </form>
 
             <script>
-              postFormData('/api/servers/', "createServerForm");
+              postFormData('/api/servers/', "createServerForm", "POST");
+              window.location.reload();
             </script>
 
           </div>

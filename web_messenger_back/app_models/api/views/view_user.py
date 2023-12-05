@@ -42,6 +42,23 @@ class UserListView(APIView):
             users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
+    
+    @swagger_auto_schema(request_body=UserSerializer)
+    def put(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    @swagger_auto_schema(request_body=PatchUserSerializer)
+    def patch(self, request, format=None):
+        user =request.user
+        serializer = PatchUserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @swagger_auto_schema(request_body=UserSerializer)
     def post(self, request, format=None):
