@@ -21,17 +21,33 @@
     {% endfor %}
 </div> 
 
+<div id="id_chat_item_container" class="chat__item__container">
+    {% for m in channeltext.message_set.all %}
+    <div>
+        <img height="40" width="40" src="/media/{{m.user.avatar}}" />
+
+        {% for su_s in serveruser_server %}
+            {% if m.user.pk == su_s.user_id %}
+                <a>{{su_s.username_local}}</a>
+            {% endif %}
+        {% endfor %}
+        
+        <li>{{m.text}}</li>
+    </div>
+    {% endfor %}
+</div> 
+
 <div >
     <input id="id_message_send_input" type="text" maxlength="100" cols="40" rows="5"/>
     <button id="id_message_send_button" type="submit">Отправить</button>
     {{ channeltext.pk|json_script:"channel-id"}}
-    {{ user.pk|json_script:"user-id" }}
+    {{ user_id|json_script:"user-id" }}
 
     <script>
         const channelId = JSON.parse(document.getElementById('channel-id').textContent);
         const userlId = "{{request.user.id}}";
         const chatSocket = new WebSocket("ws://" + window.location.host + "/channel/" + channelId);
-        
+
         chatSocket.onopen = function (e) {
             console.log("The connection was setup successfully !");
         };
