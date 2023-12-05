@@ -27,7 +27,13 @@
     {% for m in channeltext.message_set.all %}
     <div>
         <img height="40" width="40" src="/media/{{m.user.avatar}}" />
-        <a>{{m.user.serveruser_set.all.get}}</a>
+
+        {% for su_s in serveruser_server %}
+            {% if m.user.pk == su_s.user_id %}
+                <a>{{su_s.username_local}}</a>
+            {% endif %}
+        {% endfor %}
+        
         <li>{{m.text}}</li>
     </div>
     {% endfor %}
