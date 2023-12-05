@@ -24,8 +24,8 @@
 <div >
     <input id="id_message_send_input" type="text" maxlength="100" cols="40" rows="5"/>
     <button id="id_message_send_button" type="submit">Отправить</button>
-    {{ channel_id|json_script:"channel-id"}}
-    {{ user_id|json_script:"user-id" }}
+    {{ channeltext.pk|json_script:"channel-id"}}
+    {{ user.pk|json_script:"user-id" }}
 
     <script>
         const channelId = JSON.parse(document.getElementById('channel-id').textContent);
