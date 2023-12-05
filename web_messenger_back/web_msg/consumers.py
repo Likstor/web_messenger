@@ -7,7 +7,6 @@ from asgiref.sync import sync_to_async
 import datetime
 import json
 
-
 class ChatConsumer(AsyncWebsocketConsumer):
 
 	async def connect(self):

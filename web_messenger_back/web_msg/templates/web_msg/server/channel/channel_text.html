@@ -7,33 +7,25 @@
 {% block message_pblock %}    
 <div id="id_chat_item_container" class="chat__item__container">
     {% for m in channeltext.message_set.all %}
-    <div>
-        <img height="40" width="40" src="/media/{{m.user.avatar}}" />
-
         {% for su_s in serveruser_server %}
             {% if m.user.pk == su_s.user_id %}
-                <a>{{su_s.username_local}}</a>
+                <div>
+                    <button type='button' href="#" 
+                        class='btn btn-secondary w-100 text-white text-start'
+                        style='margin-bottom: 0.2rem;
+                            line-height: 1rem;
+                            --bs-btn-bg: #414141;
+                            --bs-btn-border-color: #414141;
+                            --bs-btn-hover-bg: #6A6A6A;
+                            --bs-btn-hover-border-color: #6A6A6A;'>
+                        <img src="{{ su_s.user.avatar.url }}" 
+                        alt="" width="32" height="32" class="rounded-circle ms-2">
+                        <a>{{su_s.username_local}}</a>
+                        <li>{{m.text}}</li>
+                    </button>
+                </div>
             {% endif %}
         {% endfor %}
-        
-        <li>{{m.text}}</li>
-    </div>
-    {% endfor %}
-</div> 
-
-<div id="id_chat_item_container" class="chat__item__container">
-    {% for m in channeltext.message_set.all %}
-    <div>
-        <img height="40" width="40" src="/media/{{m.user.avatar}}" />
-
-        {% for su_s in serveruser_server %}
-            {% if m.user.pk == su_s.user_id %}
-                <a>{{su_s.username_local}}</a>
-            {% endif %}
-        {% endfor %}
-        
-        <li>{{m.text}}</li>
-    </div>
     {% endfor %}
 </div> 
 
@@ -67,26 +59,33 @@
             var messageInput = document.querySelector(
             "#id_message_send_input"
             ).value;
-            chatSocket.send(JSON.stringify({ message: messageInput, user_id: userlId}));
+            chatSocket.send(JSON.stringify({message: messageInput, user_id: userlId}));
         };
 
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
-
+            var avatar =  new Image(32, 32);
             var li = document.createElement("li");
-            var avatar =  new Image(40, 40);;
-            var username_a = document.createElement("a");
             var div = document.createElement("div");
-
-            avatar.setAttribute("src", data.avatar);
-            avatar.setAttribute("height", "40");
-            avatar.setAttribute("width", "40");
-            username_a.textContent  =  data.username;
-            li.innerHTML = data.message;
+            var username_a = document.createElement("a");
+            var button = document.createElement("button");
             
-            div.appendChild(avatar);
-            div.appendChild(username_a);
-            div.appendChild(li);
+            button.setAttribute("href", "#");
+            button.setAttribute("type", "button");
+            button.setAttribute("class", "btn btn-secondary w-100 text-white text-start");
+            button.setAttribute("style", "margin-bottom: 0.2rem;line-height: 1rem;--bs-btn-bg: #414141;--bs-btn-border-color:#414141;--bs-btn-hover-bg: #6A6A6A;--bs-btn-hover-border-color: #6A6A6A;");
+
+            avatar.setAttribute("alt", ";");
+            avatar.setAttribute("src", data.avatar);
+            avatar.setAttribute("class", "rounded-circle ms-2");
+            
+            li.innerHTML = data.message;
+            username_a.textContent  =  data.username;
+
+            div.appendChild(button);
+            button.appendChild(avatar);
+            button.appendChild(username_a);
+            button.appendChild(li);
 
             document.querySelector("#id_message_send_input").value = "";
             document.querySelector("#id_chat_item_container").appendChild(div);
