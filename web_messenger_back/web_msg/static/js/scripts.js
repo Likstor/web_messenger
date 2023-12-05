@@ -5,10 +5,10 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-async function postData(url = "", data = {}) {
+async function postData(url = "", data = {}, type) {
     // Default options are marked with *
     const response = await fetch(url, {
-        method: "POST",
+        method: type,
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
@@ -24,7 +24,7 @@ async function postData(url = "", data = {}) {
     return await response.json();
 }
 
-async function postFormData(url = '', formName) {
+async function postFormData(url = '', formName, type) {
     const form = document.getElementById(formName);
 
     form.addEventListener('submit', async event => {
@@ -34,8 +34,6 @@ async function postFormData(url = '', formName) {
         
         const plainFormData = Object.fromEntries(formData.entries());
 
-        postData(url, plainFormData);
-
-        window.location.reload();
+        postData(url, plainFormData, type);
     });
 }

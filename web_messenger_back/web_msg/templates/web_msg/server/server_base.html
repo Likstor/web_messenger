@@ -147,7 +147,7 @@
 
                   const plainFormData = Object.fromEntries(formData.entries());
 
-                  postData('/api/text-channels/', plainFormData);
+                  postData('/api/text-channels/', plainFormData, "POST");
                   window.location.reload()
               });
                       </script>
