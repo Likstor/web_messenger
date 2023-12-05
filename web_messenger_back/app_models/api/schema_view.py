@@ -4,12 +4,8 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="ICQ:Isekai API",
+      title="web_messenger API",
       default_version='v1',
-      description="don't click ⬇",
-      terms_of_service="https://takeb1nzyto.space/",
-      contact=openapi.Contact(email="nepishisudabolsheponyal@nahuy.da"),
-      license=openapi.License(name="EDIK PEDIK License"),
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),
