@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
+     path('', views.index, name='index'),
     
     # sign in and sign up
     
@@ -62,6 +62,6 @@ urlpatterns = [
 
     # server
 
-    path('server/<int:server_id>/',views.ServerDetailView.as_view(), name='server-detail'),
+    path('server/<int:server_id>/', views.ServerDetailView.as_view(), name='server-detail'),
     path('server/<int:server_id>/channel/<int:channel_id>/', views.ChannelTextDetailView.as_view(), name='channel-detail'),
 ]

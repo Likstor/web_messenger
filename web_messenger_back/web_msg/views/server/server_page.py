@@ -15,6 +15,7 @@ class ServerDetailView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         try:
             server = Server.objects.get(pk=kwargs['server_id'])
+            print(server.serveruser_set)
             su = server.serveruser_set.get(user=request.user.id)
         except:
             raise Http404

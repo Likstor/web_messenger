@@ -17,6 +17,7 @@ django-filter = "*"
 django-cors-headers = "*"
 daphne = "*"
 channels = {extras = ["daphne"], version = "*"}
+channels-redis = "*"
 
 [dev-packages]
 aiosmtpd = "*"

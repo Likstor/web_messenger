@@ -2,8 +2,8 @@ body, main {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    max-height: 100%;
-    max-width: 100%;
+    /* max-height: 100%; */
+    /* max-width: 100%; */
     margin: 0;
     padding: 0;
 }
@@ -29,4 +29,39 @@ body, main {
 .scrbar {
     -ms-overflow-style: none;
     scrollbar-width: 0;
+}
+
+.form-input {
+    width: 350px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: -3px -3px 7px rgba(94, 104, 121, 0.377),
+        3px 3px 7px rgba(94, 104, 121, 0.377);
+}
+
+.form-input img {
+    width: 100%;
+    display: none;
+    margin-bottom: 30px;
+}
+
+.form-input input {
+    display: none;
+}
+
+.form-input label {
+    display: block;
+    width: 45%;
+    height: 45px;
+    margin-left: 25%;
+    line-height: 50px;
+    text-align: center;
+    background: #1172c2;
+    color: #fff;
+    font-size: 15px;
+    font-family: "Open Sans", sans-serif;
+    text-transform: Uppercase;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
 }
