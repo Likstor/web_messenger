@@ -7,12 +7,12 @@
 {% block message_pblock %}    
 <div id="id_chat_item_container" class="chat__item__container">
     {% for m in channeltext.message_set.all %}
-        {% for su_s in serveruser_server %}
+        {% for su_s in server.serveruser_set.all %}
             {% if m.user.pk == su_s.user_id %}
                 <div>
                     <button type='button' href="#" 
-                        class='btn btn-secondary w-100 text-white text-start'
-                        style='margin-bottom: 0.2rem;
+                        class='btn btn-secondary text-white text-start m-2'
+                        style='width: auto;
                             line-height: 1rem;
                             --bs-btn-bg: #414141;
                             --bs-btn-border-color: #414141;
@@ -72,8 +72,8 @@
             
             button.setAttribute("href", "#");
             button.setAttribute("type", "button");
-            button.setAttribute("class", "btn btn-secondary w-100 text-white text-start");
-            button.setAttribute("style", "margin-bottom: 0.2rem;line-height: 1rem;--bs-btn-bg: #414141;--bs-btn-border-color:#414141;--bs-btn-hover-bg: #6A6A6A;--bs-btn-hover-border-color: #6A6A6A;");
+            button.setAttribute("class", "btn btn-secondary text-white text-start m-2");
+            button.setAttribute("style", "width: auto; line-height: 1rem;--bs-btn-bg: #414141;--bs-btn-border-color:#414141;--bs-btn-hover-bg: #6A6A6A;--bs-btn-hover-border-color: #6A6A6A;");
 
             avatar.setAttribute("alt", ";");
             avatar.setAttribute("src", data.avatar);

@@ -4,7 +4,7 @@ from ...models import User
 class PatchUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('description', 'user_name', 'avatar')
+        fields = ('description', 'user_name')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

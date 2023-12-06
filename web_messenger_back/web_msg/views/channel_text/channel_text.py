@@ -18,6 +18,4 @@ class ChannelTextDetailView(LoginRequiredMixin, View):
 
         return render(request, self.template_name, context={'server' : channel.server, 
                                                             'channeltext': channel,
-                                                            'serveruser_server': ServerUser.objects.filter(server_id = channel.server_id),
-                                                            'channel_id': channel.id
                                                             })

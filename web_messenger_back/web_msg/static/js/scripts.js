@@ -24,7 +24,7 @@ async function postData(url = "", data = {}, type) {
     return await response.json();
 }
 
-async function postFormData(url = '', formName, type) {
+async function postFormData(url = '', formName, type, reload = "false") {
     const form = document.getElementById(formName);
 
     form.addEventListener('submit', async event => {
@@ -35,5 +35,10 @@ async function postFormData(url = '', formName, type) {
         const plainFormData = Object.fromEntries(formData.entries());
 
         postData(url, plainFormData, type);
+
+        if (reload == "true") {
+            window.location.reload();
+        };
+
     });
 }
