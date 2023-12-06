@@ -54,6 +54,10 @@ class UserListView(APIView):
     @swagger_auto_schema(request_body=PatchUserSerializer)
     def patch(self, request, format=None):
         user =request.user
+        
+        if request.data["user_name"] == "":
+            request.data["user_name"] = user.user_name
+        
         serializer = PatchUserSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
